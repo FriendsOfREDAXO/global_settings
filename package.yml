@@ -1,0 +1,22 @@
+package: global_settings
+version: '2.1.0'
+author: 'RexDude, Sysix, Markus Staab, Jan Kristinus'
+supportpage: http://www.redaxo.org/de/forum/
+page:
+    title: translate:title
+    perm: global_settings[settings] 
+    pjax: false
+    icon: rex-icon fa-wrench
+    subpages:
+        settings: { title: 'translate:settings', perm: global_settings[settings] }
+        fields: { title: 'translate:fields', perm: admin[] }
+        help:
+            title: 'translate:help'
+            perm: admin[]
+            subpages:
+                readme: { title: 'translate:help_readme' }
+                changelog: { title: 'translate:help_changelog' }
+                license: { title: 'translate:help_license' }
+requires:
+    redaxo: '^5.0'
+

@@ -1,0 +1,15 @@
+.global-settings.nav-tabs {
+    margin-bottom: 20px;
+}
+
+.global-settings.nav-tabs li label {
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.sp-replacer,
+.sp-replacer:hover, 
+.sp-replacer.sp-active,
+.sp-container {
+	border-color: #c1c9d4;
+}
