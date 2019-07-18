@@ -1,5 +1,5 @@
 package: global_settings
-version: '2.1.0'
+version: '2.2.0-dev'
 author: 'RexDude, Sysix, Markus Staab, Jan Kristinus'
 supportpage: http://www.redaxo.org/de/forum/
 page:
@@ -14,7 +14,8 @@ page:
             title: 'translate:help'
             perm: admin[]
             subpages:
-                readme: { title: 'translate:help_readme' }
+                help:  
+                     { title: 'translate:quicknavi_help',  icon: rex-icon fa-question-circle, subPath: README.md} 
                 changelog: { title: 'translate:help_changelog' }
                 license: { title: 'translate:help_license' }
 requires:
