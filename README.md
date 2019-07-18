@@ -1,10 +1,8 @@
-Globale Einstellungen AddOn für REDAXO 5
-========================================
+# Globale Einstellungen AddOn für REDAXO 5
 
 Mit diesem Addon kann man globale MetaInfos setzen die für die gesamte Website gültig sind. Admins können Felder anlegen und bearbeiten, Nicht-Admins können nur bearbeiten
 
-Features
---------
+## Features
 
 * MetaInfos für die gesamte Website
 * API für den Zugriff auf die Felder
@@ -12,8 +10,7 @@ Features
 * Mehrsprachigkeit
 * Neue Feldertypen: Tab, Colorpicker
 
-Tabs
-----
+## Tabs
 
 Das AddOn kann Felder in Tabs gruppieren. Hier ein Beispiel für die Gruppierung in 3 Tabs:
 
@@ -21,15 +18,13 @@ Das AddOn kann Felder in Tabs gruppieren. Hier ein Beispiel für die Gruppierung
 * Tracking Code (Textarea mit class="codemirror", wenn installiert)
 * Übersetzungen (mit Text-Felder wie bei Sprog oder beim String Table Addon für R4).
 
-Colorpicker
------------
+## Colorpicker
 
 * Der eingsetzte Colorpicker ist dieser hier: https://bgrins.github.io/spectrum/ 
 * Alle Optionen lassen sich auch per data-Attribut festlegen (einzugeben in Globale Einstellungen > Felder > Feldattribute), siehe den Tip hier https://bgrins.github.io/spectrum/#options
 * Beispiel: `data-preferred-format="rgb" data-show-alpha="true"` zeigt rgba Werte an inkl. Alpha-Transparenzen.
 
-API
----
+## API
 
 ```php
 // ausgabe eines Feldes der aktuellen Sprache
@@ -51,26 +46,23 @@ echo rex_global_settings::getString('my_field', 2);
 echo rex_global_settings::getDefaultString('my_field');
 ```
 
-Hinweise
---------
+## Hinweise
 
 * Getestet mit REDAXO 5.2, 5.3
 * AddOn-Ordner lautet: `global_settings`
 * Addon kann als String Table / Sprog Ersatz genutzt werden durch Einsatz der Tabs. Die Feldbezeichnung können auch leer gelassen werden, dann wird direkt der Feldname (Spaltenname) dem Enduser angezeigt.
 
-Changelog
----------
+## Changelog
 
 siehe `CHANGELOG.md` des AddOns
 
-Lizenz
-------
+## Lizenz
 
 MIT-Lizenz, siehe `LICENSE.md` des AddOns
 
-Credits
--------
+## Credits
 
+* REXDude
 * Spectrum Color Picker
 * Global Settings ist ein Fork des Meta Info Addons
 * Sysix
