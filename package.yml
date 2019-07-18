@@ -15,7 +15,7 @@ page:
             perm: admin[]
             subpages:
                 help:  
-                     { title: 'translate:quicknavi_help',  icon: rex-icon fa-question-circle, subPath: README.md} 
+                     { title: 'translate:help_readme',  icon: rex-icon fa-question-circle, subPath: README.md} 
                 changelog: { title: 'translate:help_changelog' }
                 license: { title: 'translate:help_license' }
 requires:
