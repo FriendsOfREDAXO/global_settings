@@ -1,6 +1,11 @@
 Globale Einstellungen - Changelog
 =================================
 
+### Version 2.2.0-dev - XX.XX.XXXX
+
+* Neu: Readme mit AutoToc
+* Neu REX_GLOBAL_VAR
+
 ### Version 2.1.0 - 09. Juni 2018
 
 * Extension Point `GLOBAL_SETTINGS_CHANGED` hinzugefügt. Wird getriggert wenn die Felder oder die Settings aktualisiert wurden
