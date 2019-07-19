@@ -55,7 +55,7 @@ Verwendung:
 
 ```
 REX_GLOBAL_VAR[var=my_field]
-
+```
 
 ## Hinweise
 
