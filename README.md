@@ -46,6 +46,17 @@ echo rex_global_settings::getString('my_field', 2);
 echo rex_global_settings::getDefaultString('my_field');
 ```
 
+## REDAXO-Variable
+
+Die REDAXO-Variable `REX_GLOBAL_VAR` kann in Modulen und Templates verwendet werden um Werte auszulesen. 
+Sie entspricht der Ausgabe von: rex_global_settings::getValue('my_field'). 
+
+Verwendung: 
+
+```
+REX_GLOBAL_VAR[var=my_field]
+
+
 ## Hinweise
 
 * Getestet mit REDAXO 5.2, 5.3
