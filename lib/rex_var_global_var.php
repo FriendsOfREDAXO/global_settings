@@ -16,7 +16,6 @@ class rex_var_global_var extends rex_var
        if ($this->hasArg('var') && $this->getArg('var')) {
        $out =  rex_global_settings::getValue($this->getArg('var'));
     }
-	// Reine Textausgaben müssen mit 'self::quote()' als String maskiert werden.
 	return self::quote($out);
    }
 }
