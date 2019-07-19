@@ -14,10 +14,9 @@ page:
             title: 'translate:help'
             perm: admin[]
             subpages:
-                help:  
-                     { title: 'translate:help_readme',  icon: rex-icon fa-question-circle, subPath: README.md} 
+                readme: { title: 'translate:help_readme' }
                 changelog: { title: 'translate:help_changelog' }
                 license: { title: 'translate:help_license' }
 requires:
-    redaxo: '^5.0'
+    redaxo: '^5.7'
 
