@@ -1,6 +1,6 @@
 package: global_settings
 version: '2.2.0-dev'
-author: 'RexDude, Sysix, Markus Staab, Jan Kristinus'
+author: 'RexDude, Sysix, Markus Staab, Jan Kristinus, Thomas Skerbis'
 supportpage: https://github.com/FriendsOfREDAXO/global_settings
 page:
     title: translate:title
