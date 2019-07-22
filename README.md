@@ -27,23 +27,26 @@ Das AddOn kann Felder in Tabs gruppieren. Hier ein Beispiel für die Gruppierung
 ## API
 
 ```php
-// ausgabe eines Feldes der aktuellen Sprache
+// Ausgabe eines Feldes der aktuellen Sprache
 echo rex_global_settings::getValue('my_field');
 
-// ausgabe eines Feldes der Sprache mit der ID = 2
+// Ausgabe eines Feldes der Sprache mit der ID = 2
 echo rex_global_settings::getValue('my_field', 2);
 
-// ausgabe eines Feldes der Haupt-Sprache
+// Ausgabe eines Feldes der Haupt-Sprache
 echo rex_global_settings::getDefaultValue('my_field');
 
-// ausgabe eines Feldes der aktuellen Sprache, wenn leer kommt Ausgabe {{ my_field }}
+// Ausgabe eines Feldes der aktuellen Sprache, wenn leer kommt Ausgabe {{ my_field }}
 echo rex_global_settings::getString('my_field');
 
-// ausgabe eines Feldes der Sprache mit der ID = 2, wenn leer kommt Ausgabe {{ my_field }}
+// Ausgabe eines Feldes der Sprache mit der ID = 2, wenn leer kommt Ausgabe {{ my_field }}
 echo rex_global_settings::getString('my_field', 2);
 
-// ausgabe eines Feldes der Haupt-Sprache, wenn leer kommt Ausgabe {{ my_field }}
+// Ausgabe eines Feldes der Haupt-Sprache, wenn leer kommt Ausgabe {{ my_field }}
 echo rex_global_settings::getDefaultString('my_field');
+
+// Ausgabe der Felddefinition als Array
+dump(rex_global_settings::getFieldDefinition('my_field'));
 ```
 
 ## REDAXO-Variable
