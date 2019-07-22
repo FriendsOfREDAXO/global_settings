@@ -14,7 +14,7 @@ class rex_var_global_var extends rex_var
    {
     $out = '';   
        if ($this->hasArg('var') && $this->getArg('var')) {
-       $out =  rex_global_settings::getValue($this->getArg('var'));
+       $out =  rex_global_settings::getString($this->getArg('var'));
     }
 	return self::quote($out);
    }
