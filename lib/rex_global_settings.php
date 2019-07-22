@@ -96,5 +96,12 @@ class rex_global_settings {
 
 		return $field;
 	}
+	
+	public static function getFieldDefinition($field) {
+        $field = self::FIELD_PREFIX . self::getStrippedField($field);
+        $sql = rex_sql::factory();
+        $result = $sql->getArray('SELECT * FROM '. rex::getTablePrefix() . 'global_settings_field WHERE name = :name',['name'=>$field]);
+        return $result[0];
+        }
 }
 
