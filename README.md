@@ -2,6 +2,9 @@
 
 Mit diesem Addon kann man globale MetaInfos setzen die für die gesamte Website gültig sind. Admins können Felder anlegen und bearbeiten, Nicht-Admins können nur bearbeiten
 
+![Screenshot](https://github.com/FriendsOfREDAXO/global_settings/raw/assets/screenshot.png)
+(Beispiel)
+
 ## Features
 
 * MetaInfos für die gesamte Website
