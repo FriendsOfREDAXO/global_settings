@@ -1,6 +1,6 @@
-# Globale Einstellungen AddOn für REDAXO 5
+# Globale Einstellungen, AddOn für REDAXO 5
 
-Mit diesem Addon kann man globale MetaInfos setzen die für die gesamte Website gültig sind. Admins können Felder anlegen und bearbeiten, Nicht-Admins können nur bearbeiten
+Mit diesem Addon kann man globale MetaInfos setzen, die für die gesamte Website gültig sind. Admins können Felder anlegen und bearbeiten, Nicht-Admins können diese nur bearbeiten
 
 ![Screenshot](https://github.com/FriendsOfREDAXO/global_settings/raw/assets/screenshot.png)
 (Beispiel)
