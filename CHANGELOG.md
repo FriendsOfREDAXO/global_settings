@@ -1,14 +1,15 @@
-Globale Einstellungen - Changelog
-=================================
+# Globale Einstellungen - Changelog
 
-### Version 2.2.0-dev - XX.XX.XXXX
+## Version 2.2.0 - 25.07.2019
+
+Ab jetzt ein FriendsOfREDAXO-Projekt 
 
 * Neu: Readme mit AutoToc
 * Neu `REX_GLOBAL_VAR` liefert das Value des Felde als String der aktuellen Sprache
 * Neu: `rex_global_settings::getFieldDefinition('my_field')` liefert die Felddefinition als Array
 * Screenshot hinzugefügt
 
-### Version 2.1.0 - 09. Juni 2018
+## Version 2.1.0 - 09. Juni 2018
 
 * Extension Point `GLOBAL_SETTINGS_CHANGED` hinzugefügt. Wird getriggert wenn die Felder oder die Settings aktualisiert wurden
 * Focus wird auf erstes Textfeld gelegt beim anlegen/bearbeiten eines Feldes
@@ -17,7 +18,7 @@ Globale Einstellungen - Changelog
 * File-Cache für die Einstellungen hinzugefügt, benötigt keine DB Abfragen mehr wenn einmal gecachet
 * Ausgabe der Codebeispiele für REDAXO 5.6 wiederhergestellt
 
-### Version 2.0.0 - 15. März 2017
+## Version 2.0.0 - 15. März 2017
 
 * Portierung zu REDAXO 5
 * Neuer Feldtyp: Tab, dadurch kann man das AddOn auch als String Table oder Sprog ersatz benutzen. Die Feldbezeichnung können auch leer gelassen werden, dann wird direkt der Feldname (Spaltenname) dem Enduser angezeigt.
@@ -26,7 +27,7 @@ Globale Einstellungen - Changelog
 * Hinzugefügt: `rex_global_settings::getString()` und `rex_global_settings::getDefaultString()`. Wie `getValue()` nur dass standardmäßig ein Platzhalter angezeigt wird wenn Ausgabe leer ist.
 * Ein dritter Parameter `$allowEmpty` für `getValue()` und `getString()` wurde hinzugefügt der steuert ob ein Platzhalter angezeigt wird wenn Feld leer oder nicht da. `getValue()` Standard: nicht anzeigen, `getString()` Standard: anzeigen
 
-### Version 1.1.0 - 01. März 2016
+## Version 1.1.0 - 01. März 2016
 
 * Fixed #10: Checkboxen gingen nicht, specialthx@Sysix
 * Fixed #11: Wenn Feld nicht vorhanden war gab es eine Fehlermeldung, specialthx@Sysix
@@ -34,9 +35,9 @@ Globale Einstellungen - Changelog
 * Fixed: Database down Problem wenn REDAXO Setup gestartet wurde
 * Fixed #8: Felder wurden nicht korrekt ausgelesen unter PHP 5.3
 
-### Version 1.0.1 - 20. August 2015
+## Version 1.0.1 - 20. August 2015
 
 * Englische Backend Übersetzung hinzugefügt
 
-### Version 1.0.0 - 11. August 2015
+## Version 1.0.0 - 11. August 2015
 
