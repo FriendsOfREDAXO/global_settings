@@ -6,6 +6,7 @@ Globale Einstellungen - Changelog
 * Neu: Readme mit AutoToc
 * Neu `REX_GLOBAL_VAR` liefert das Value des Felde als String der aktuellen Sprache
 * Neu: `rex_global_settings::getFieldDefinition('my_field')` liefert die Felddefinition als Array
+* Screenshot hinzugefügt
 
 ### Version 2.1.0 - 09. Juni 2018
 
