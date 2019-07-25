@@ -15,7 +15,7 @@ Mit diesem Addon kann man globale MetaInfos setzen, die für die gesamte Website
 
 ## Tabs
 
-Das AddOn kann Felder in Tabs gruppieren. Hier ein Beispiel für die Gruppierung in 3 Tabs:
+Das AddOn kann Felder in Tabs gruppieren. Hier ein Beispiel für eine mögliche Gruppierung in 3 Tabs:
 
 * Allgemein (mit allgemeinen Feldern)
 * Tracking Code (Textarea mit class="codemirror", wenn installiert)
@@ -65,7 +65,7 @@ REX_GLOBAL_VAR[var=my_field]
 
 ## Hinweise
 
-* Getestet mit REDAXO 5.2, 5.3
+* Getestet mit REDAXO 5.2, 5.3 bis 5.7.1
 * AddOn-Ordner lautet: `global_settings`
 * Addon kann als String Table / Sprog Ersatz genutzt werden durch Einsatz der Tabs. Die Feldbezeichnung können auch leer gelassen werden, dann wird direkt der Feldname (Spaltenname) dem Enduser angezeigt.
 
