@@ -5,7 +5,7 @@ supportpage: https://github.com/FriendsOfREDAXO/global_settings
 page:
     title: translate:title
     perm: global_settings[settings] 
-    pjax: false
+    pjax: true
     icon: rex-icon fa-wrench
     subpages:
         settings: { title: 'translate:settings', perm: global_settings[settings] }
