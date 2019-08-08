@@ -63,9 +63,15 @@ Verwendung:
 REX_GLOBAL_VAR[var=my_field]
 ```
 
+Benötigt man einen leeren Rückgabewert für Prüfungen
+
+```
+REX_GLOBAL_VAR[var=my_field empty=1]
+```
+
 ## Hinweise
 
-* Getestet mit REDAXO 5.2, 5.3 bis 5.7.1
+* Getestet mit REDAXO 5.2 bis 5.7.1
 * AddOn-Ordner lautet: `global_settings`
 * Addon kann als String Table / Sprog Ersatz genutzt werden durch Einsatz der Tabs. Die Feldbezeichnung können auch leer gelassen werden, dann wird direkt der Feldname (Spaltenname) dem Enduser angezeigt.
 
