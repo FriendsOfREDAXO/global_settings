@@ -1,5 +1,12 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.3.0 - 08.08.2019
+
+Neu: REX_GLOBAL_VAR[var=my_field empty=1]
+
+um leere Felder prüfen zu können. 
+
+
 ## Version 2.2.0 - 25.07.2019
 
 Ab jetzt ein FriendsOfREDAXO-Projekt 
