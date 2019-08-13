@@ -2,7 +2,7 @@
 
 ## Version 2.3.0 - 08.08.2019
 
-Neu: `REX_GLOBAL_VAR[var=my_field empty=1]
+Neu: `REX_GLOBAL_VAR[var=my_field empty=1]`
 
 um leere Felder prüfen zu können. 
 
