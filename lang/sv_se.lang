@@ -1,0 +1,73 @@
+global_settings_settings = Inställningar
+global_settings_fields = Fält
+global_settings_help = Hjälp
+global_settings_help_readme = Readme
+global_settings_help_changelog = Changelog
+global_settings_help_license = Licens
+
+global_settings_title = Globala inställnigar
+global_settings_global_settings_not_found = Inga fält hittades
+
+global_settings_field_list_caption = Fält
+
+global_settings_field_fieldset = Redigera/skapa fält
+global_settings_field_label_prefix = Prefix
+global_settings_field_label_title = Fältnamn
+global_settings_field_label_name = Spaltnamn
+global_settings_field_label_function = Funktion
+global_settings_field_label_functions = Funktioner
+global_settings_field_label_id = Id
+global_settings_field_label_type = Fälttyp
+global_settings_field_label_attributes = Fältattribut
+global_settings_field_label_callback = Callback
+global_settings_field_label_callback_templates = Callback mallar
+global_settings_field_label_default = Standard värde
+global_settings_field_label_nullable = Obligatoriskt fält
+global_settings_field_label_params = Parameter
+global_settings_field_label_priority = Fältpostition
+global_settings_field_label_restrictions = Endast tillgängligt i följande kategorier
+global_settings_field_label_no_restrictions = Finns i alla kategorier
+
+global_settings_field_notice_title = Prefixet "translate:" översätter värdet via I18N
+
+global_settings_field_first_priority = Vid början
+global_settings_field_after_priority = Efter fält "{0}"
+
+global_settings_field_params_notice_3 = Exempel: <br /> a) <code> all|user|admin </code> <br /> b) <code> 1: all|2:user|3:admin</code><br />c) <code>SELECT labelt,id FROM my_table WHERE a=4</code><br />d) <code> (DB2) SELECT label,id FROM my_table WHERE a=4</code>
+global_settings_field_params_notice_4 = Exempel: <br /> a) <code> all|user|admin </code> <br /> b) <code> 1: all|2:user|3:admin</code><br />c) <code>SELECT labelt,id FROM my_table WHERE a=4</code><br />d) <code> (DB2) SELECT label,id FROM my_table WHERE a=4</code>
+global_settings_field_params_notice_5 = Exempel: <br /> a) <code> all|user|admin </code> <br /> b) <code> 1: all|2:user|3:admin</code><br />c) <code>SELECT labelt,id FROM my_table WHERE a=4</code><br />d) <code> (DB2) SELECT label,id FROM my_table WHERE a=4</code>
+global_settings_field_params_notice_6 = Exempel: <br /> <code> category = "1" types = "gif, jpg" preview = "1" </ code>
+global_settings_field_params_notice_7 = Exempel: <br /> <code> category = "1" types = "gif, jpg" preview = "1" </ code>
+global_settings_field_params_notice_8 = Exempel: <br /> <code> category = "1" </ code>
+global_settings_field_params_notice_9 = Exempel: <br /> <code> category = "1" </ code>
+
+global_settings_field_attributes_notice = Exempel: <br /> <code> style = "color: red;" multiple = "multiple" class= "my_css_class" perm = "admin []" </ code>
+global_settings_field_label_notice = Code som körs när värdet på fältet ändras. <br /> Läsbara variabler: <code> string $fieldName, string $fieldValue, rex_sql $field </code>
+
+global_settings_field_error_name = Ange kolumnnamn!
+global_settings_field_error_unique_name = Det angivna kolumnnamnet finns redan!
+global_settings_field_error_unique_type = Det angivna typnamnet finns redan!
+global_settings_field_error_chars_name = Kolumnnamnet innehåller ogiltiga tecken (tillåtna är A-Z, 0-9 och _)!
+global_settings_field_error_invalid_prefix = Det angivna prefixet är ogiltigt!
+global_settings_field_error_invalid_type = Den angivna typen är ogiltig!
+global_settings_field_error_invalid_length = Den angivna fältlängden är ogiltig!
+global_settings_field_error_invalid_name = Det angivna kolumnnamnet är ogiltig!
+global_settings_field_error_invalid_fieldid = Den angivna fält-id är ogiltig!
+global_settings_field_error_invalid_typeid = Den angivna typ-id är ogiltig!
+global_settings_field_error_deleted = Fältet raderades inte!
+global_settings_field_successfull_deleted = Fältet raderas framgångsrikt!
+global_settings_field_successfull_saved = Data sparas framgångsrikt!
+
+global_settings_default_fields_create = Skapa standardfält
+global_settings_default_fields_created = Standardfält skapade framgångsrikt!
+
+global_settings_edit_global_settings = Redigera globala inställningar
+global_settings_metadata_saved = Globala inställningarna sparades
+
+global_settings_media_in_use_glob = Globala inställningar (Metadata)
+
+global_settings_callback_lang_indep_field = Språkoberoende fält
+
+global_settings_save_settings = Spara inställningarna
+
+
