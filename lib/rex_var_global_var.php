@@ -15,10 +15,10 @@ class rex_var_global_var extends rex_var
     $out = '';   
        if ($this->hasArg('var') && $this->getArg('var')) {
         if ($this->hasArg('empty') && $this->getArg('empty')=='1') {
-         return rex_global_settings::getDefaultValue($this->getArg('var'));    
+         return quote(rex_global_settings::getDefaultValue($this->getArg('var')));    
          }
            else {
-               return rex_global_settings::getString($this->getArg('var'));
+               return quote(rex_global_settings::getString($this->getArg('var')));
            }
 
     }
