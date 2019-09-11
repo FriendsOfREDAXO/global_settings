@@ -22,7 +22,6 @@ class rex_var_global_var extends rex_var
            }
 
     }
-    return self::quote($out);
    }
 }
 
