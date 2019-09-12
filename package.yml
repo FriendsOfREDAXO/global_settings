@@ -1,5 +1,5 @@
 package: global_settings
-version: '2.3.2-dev'
+version: '2.4.0'
 author: 'RexDude, Sysix, Markus Staab, Jan Kristinus, Thomas Skerbis, FriendsOfREDAXO'
 supportpage: https://github.com/FriendsOfREDAXO/global_settings
 page:
