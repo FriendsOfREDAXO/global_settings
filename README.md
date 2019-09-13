@@ -75,8 +75,6 @@ REX_GLOBAL_VAR[var=my_field empty=1]
 
 ## Hinweise
 
-* Getestet mit REDAXO 5.2 bis 5.7.1
-* AddOn-Ordner lautet: `global_settings`
 * Addon kann als String Table / Sprog Ersatz genutzt werden durch Einsatz der Tabs. Die Feldbezeichnung können auch leer gelassen werden, dann wird direkt der Feldname (Spaltenname) dem Enduser angezeigt.
 
 ## Changelog
@@ -85,7 +83,7 @@ siehe `CHANGELOG.md` des AddOns
 
 ## Lizenz
 
-MIT-Lizenz, siehe `LICENSE.md` des AddOns
+MIT-Lizenz, siehe `LICENSE.md` des AddOns und Release notes
 
 ## Credits
 
