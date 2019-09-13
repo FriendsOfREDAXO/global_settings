@@ -60,6 +60,10 @@ Sie entspricht der Ausgabe von: `rex_global_settings::getString('my_field')`.
 Verwendung: 
 
 ```
+REX_GLOBAL_VAR[my_field]
+```
+
+```
 REX_GLOBAL_VAR[var=my_field]
 ```
 
