@@ -62,7 +62,7 @@ global_settings_default_fields_create = Standardfelder erstellen
 global_settings_default_fields_created = Standardfelder erfolgreich erstellt!
 
 global_settings_edit_global_settings = Globale Einstellungen bearbeiten
-global_settings_metadata_saved = Die Globale Einstellungen wurden gespeichert.
+global_settings_metadata_saved = Die Globalen Einstellungen wurden gespeichert.
 
 global_settings_media_in_use_glob = Globale Einstellungen (Metadaten)
 
