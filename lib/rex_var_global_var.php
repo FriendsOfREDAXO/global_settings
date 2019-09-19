@@ -23,6 +23,6 @@ class rex_var_global_var extends rex_var
             $method = 'getString';
         }
 
-        return "rex_escape(rex_global_settings::$method($var))";
+        return "rex_global_settings::$method($var)";
     }
 }
