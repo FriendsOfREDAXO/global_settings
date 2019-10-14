@@ -82,6 +82,7 @@ class rex_global_settings {
 
 		if (isset(self::$globalValues[$clangId][$field])) {
 			rex_sql::factory()->setDebug(0)->setQuery('UPDATE '. rex::getTablePrefix() . 'global_settings SET '.$field.' =  :value WHERE clang = :clang',[':value'=> $value, ':clang'=>$clangId]);
+			rex_global_settings::deleteCache();
 			return true;
 		} else {
 			return false;
