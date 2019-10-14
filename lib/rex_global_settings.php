@@ -72,6 +72,22 @@ class rex_global_settings {
 
 		return self::getEmptyFieldOutput($field, '', $allowEmpty);
 	}
+	
+	public static function setValue($field, $clangId = null, $value = "") {
+		if ($clangId == null) {
+			$clangId = self::$curClangId;
+		}
+
+		$field = self::FIELD_PREFIX . self::getStrippedField($field);
+
+		if (isset(self::$globalValues[$clangId][$field])) {
+			rex_sql::factory()->setDebug(0)->setQuery('UPDATE '. rex::getTablePrefix() . 'global_settings SET '.$field.' =  :value WHERE clang = :clang',[':value'=> $value, ':clang'=>$clangId]);
+			rex_global_settings::deleteCache();
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public static function getDefaultString($field, $allowEmpty = false) {
 		return self::getDefaultValue($field, $allowEmpty);
