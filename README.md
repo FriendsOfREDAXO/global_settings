@@ -52,7 +52,7 @@ echo rex_global_settings::getDefaultString('my_field');
 dump(rex_global_settings::getFieldDefinition('my_field'));
 
 // Überschreiben eines Feldwertes der aktuellen Sprache mit dem Wert "Hallo"  
-echo rex_global_settings::setValue('my_field', null, "Hallo");
+rex_global_settings::setValue('my_field', null, "Hallo");
 ```
 
 ## REDAXO-Variable
