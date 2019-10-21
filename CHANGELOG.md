@@ -1,5 +1,26 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.5.0
+
+Einstellungen können nun auch mit rex_global_settings::setValue() gesetzt werden, Danke @alexplusde
+
+## Version 2.4.1
+
+REX_GLOBAL_VAR rex_escape entfernt, damit HTML-Ausgaben möglich werden.
+
+## Version 2.4.0 
+
+Var= ist nun optional
+
+Es kann nun auch folgende Schreibweise verwendet werden:
+
+REX_GLOBAL_VAR[key]
+
+## Version 2.3.1 
+
+Bugfix Release
+
+
 ## Version 2.3.0 - 08.08.2019
 
 Neu: `REX_GLOBAL_VAR[var=my_field empty=1]`
