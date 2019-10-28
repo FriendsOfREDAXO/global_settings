@@ -11,7 +11,7 @@ class rex_global_settings {
 	public static function init() {	
 		self::$curClangId = rex_clang::getCurrentId();
 		self::$defaultClang = rex_clang::getStartId();
-		self::$cacheFile = rex_path::addonData('global_settings', self::CACHE_FILENAME);
+		self::$cacheFile = rex_path::addonCache('global_settings', self::CACHE_FILENAME);
 
 		if (file_exists(self::$cacheFile)) {
 			// retrieve from cache
@@ -30,12 +30,12 @@ class rex_global_settings {
 					self::$globalValues[$clangId] = $result[$i];
 				}
 
-				// create data dir if necessary
-				$dataDir = rex_path::addonData('global_settings');
+				// create cache dir if necessary
+				$dataCache = rex_path::addonCache('global_settings');
 
-				if (!file_exists($dataDir)) {
-					if (!mkdir($dataDir, rex::getDirPerm())) {
-						throw new Exception('Dir "' . $dataDir . '" could not be created! Check if server permissions are set correctly.');
+				if (!file_exists($dataCache)) {
+					if (!mkdir($dataCache, rex::getDirPerm())) {
+						throw new Exception('Dir "' . $dataCache . '" could not be created! Check if server permissions are set correctly.');
 					}
 				}
 
