@@ -1,0 +1,71 @@
+global_settings_settings = Ajustes
+global_settings_fields = Campos
+global_settings_help = Ayuda
+global_settings_help_readme = Léame
+global_settings_help_changelog = Cambios
+global_settings_help_license = Licencia
+
+global_settings_title = Configuraciones globales
+global_settings_global_settings_not_found = No se encontraron campos
+
+global_settings_field_list_caption = campos
+
+global_settings_field_fieldset = Editar / crear campo
+global_settings_field_label_prefix = prefijo
+global_settings_field_label_title = Nombre del campo
+global_settings_field_label_name = nombre de la columna
+global_settings_field_label_function = función
+global_settings_field_label_functions = características
+global_settings_field_label_id = identificación
+global_settings_field_label_type = tipo de campo
+global_settings_field_label_attributes = atributos de campo
+global_settings_field_label_callback = devolución de llamada
+global_settings_field_label_callback_templates = Plantillas de devolución de llamada
+global_settings_field_label_default = defecto
+global_settings_field_label_nullable = campo obligatorio
+global_settings_field_label_params = parámetro
+global_settings_field_label_priority = posición en el campo
+global_settings_field_label_restrictions = Solo disponible en las siguientes categorías
+global_settings_field_label_no_restrictions = Disponible en todas las categorias
+
+global_settings_field_notice_title = El prefijo "traducir:" traduce el valor a través de I18N
+
+global_settings_field_first_priority = Al principio
+global_settings_field_after_priority = Después del campo "{0}"
+
+global_settings_field_params_notice_3 = Ejemplos: <br /> a) <código> todos | usuario | admin </ código> <br /> b) <código> 1: todos | 2: usuario | 3: admin </ código> <br /> c) <code> etiqueta SELECT, id FROM my_table WHERE a = 4 </ code> <br /> d) <code> (DB2) SELECT label, id FROM my_table WHERE a = 4 </ code>
+global_settings_field_params_notice_4 = Ejemplos: <br /> a) <código> todos | usuario | admin </ código> <br /> b) <código> 1: todos | 2: usuario | 3: admin </ código> <br /> c) <code> etiqueta SELECT, id FROM my_table WHERE a = 4 </ code> <br /> d) <code> (DB2) SELECT label, id FROM my_table WHERE a = 4 </ code>
+global_settings_field_params_notice_5 = Ejemplos: <br /> a) <código> todos | usuario | admin </ código> <br /> b) <código> 1: todos | 2: usuario | 3: admin </ código> <br /> c) <code> etiqueta SELECT, id FROM my_table WHERE a = 4 </ code> <br /> d) <code> (DB2) SELECT label, id FROM my_table WHERE a = 4 </ code>
+global_settings_field_params_notice_6 = Ejemplo: <br /> <code> category = "1" types = "gif, jpg" preview = "1" </ code>
+global_settings_field_params_notice_7 = Ejemplo: <br /> <code> category = "1" types = "gif, jpg" preview = "1" </ code>
+global_settings_field_params_notice_8 = Ejemplo: <br /> <code> category = "1" </ code>
+global_settings_field_params_notice_9 = Ejemplo: <br /> <code> category = "1" </ code>
+
+global_settings_field_attributes_notice = Ejemplo: <br /> <code> style = "color: red;" multiple = "multiple" class = "my_css_class" perm = "admin []" </ code>
+global_settings_field_label_notice = Código ejecutado cuando se cambia el valor del campo. <br /> Variables legibles: <code> string $ fieldName, string $ fieldValue, rex_sql $ field </ code>
+
+global_settings_field_error_name = Por favor ingrese el nombre de la columna!
+global_settings_field_error_unique_name = ¡El nombre de columna especificado ya existe!
+global_settings_field_error_unique_type = ¡El nombre de tipo especificado ya existe!
+global_settings_field_error_chars_name = ¡El nombre de la columna contiene caracteres no válidos (los permitidos son A-Z, 0-9 y _)!
+global_settings_field_error_invalid_prefix = ¡El prefijo especificado no es válido!
+global_settings_field_error_invalid_type = ¡El tipo especificado no es válido!
+global_settings_field_error_invalid_length = ¡La longitud del campo especificado no es válida!
+global_settings_field_error_invalid_name = ¡El nombre de columna especificado no es válido!
+global_settings_field_error_invalid_fieldid = ¡La ID de campo especificada no es válida!
+global_settings_field_error_invalid_typeid = ¡El Id. De tipo especificado no es válido!
+global_settings_field_error_deleted = ¡El campo no fue eliminado!
+global_settings_field_successfull_deleted = ¡Campo eliminado con éxito!
+global_settings_field_successfull_saved = ¡Datos guardados con éxito!
+
+global_settings_default_fields_create = Crear campos estándar
+global_settings_default_fields_created = ¡Campos estándar creados con éxito!
+
+global_settings_edit_global_settings = Editar configuración global
+global_settings_metadata_saved = La configuración global se ha guardado.
+
+global_settings_media_in_use_glob = Configuración global (metadatos)
+
+global_settings_callback_lang_indep_field = Campo independiente del idioma
+
+global_settings_save_settings = Guardar configuración
