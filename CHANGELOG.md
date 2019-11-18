@@ -1,5 +1,10 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.6.0
+- Replaced data-path by cache @alexplus.de
+- Spanish translation @nandes2062 
+
+
 ## Version 2.5.0
 
 Einstellungen können nun auch mit rex_global_settings::setValue() gesetzt werden, Danke @alexplusde
