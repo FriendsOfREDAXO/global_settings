@@ -1,6 +1,6 @@
 package: global_settings
 version: '2.6.0-dev'
-author: 'RexDude, Sysix, Markus Staab, Jan Kristinus, Thomas Skerbis, FriendsOfREDAXO'
+author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/global_settings
 page:
     title: translate:title
@@ -19,4 +19,3 @@ page:
                 license: { title: 'translate:help_license' }
 requires:
     redaxo: '^5.7'
-
