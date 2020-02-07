@@ -19,3 +19,5 @@ page:
                 license: { title: 'translate:help_license' }
 requires:
     redaxo: '^5.7'
+    php:
+        version: '^5.6'
