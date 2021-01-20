@@ -34,7 +34,7 @@ class rex_global_settings {
 				$dataCache = rex_path::addonCache('global_settings');
 
 				if (!file_exists($dataCache)) {
-					if (!mkdir($dataCache, rex::getDirPerm())) {
+					if (!mkdir($dataCache, rex::getDirPerm(), true)) {
 						throw new Exception('Dir "' . $dataCache . '" could not be created! Check if server permissions are set correctly.');
 					}
 				}
