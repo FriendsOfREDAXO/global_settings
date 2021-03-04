@@ -1,6 +1,6 @@
 # Globale Einstellungen - Changelog
 
-## Version 2.6.0
+## Version 2.5.1
 - Replaced data-path by cache @alexplus.de
 - Spanish translation @nandes2062 
 
