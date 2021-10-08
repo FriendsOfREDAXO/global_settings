@@ -24,6 +24,9 @@ abstract class rex_global_settings_handler
 
         $activeItem = isset($epParams['activeItem']) ? $epParams['activeItem'] : null;
 
+        $fieldWithinTab = false;
+        $hideByTabPerm = false;
+
         $sqlFields->reset();
         for ($i = 0; $i < $sqlFields->getRows(); $i++, $sqlFields->next()) {
             // Umschliessendes Tag von Label und Formularelement
@@ -38,11 +41,15 @@ abstract class rex_global_settings_handler
             $dblength = $sqlFields->getValue('dblength');
 
             $attrArray = rex_string::split($attr);
-            if (isset($attrArray['perm'])) {
+            if (isset($attrArray['perm']) && $typeLabel !== 'tab') {
                 if (!rex::getUser()->hasPerm($attrArray['perm'])) {
                     continue;
                 }
                 unset($attrArray['perm']);
+            }
+
+            if($typeLabel !== 'tab' && $fieldWithinTab && $hideByTabPerm) {
+                continue;
             }
 
             $defaultValue = $sqlFields->getValue('default');
@@ -368,6 +375,15 @@ abstract class rex_global_settings_handler
                     $tag = '';
                     $tag_attr = '';
                     $labelIt = false;
+                    $fieldWithinTab = true;
+                    $hideByTabPerm = false;
+
+                    if (isset($attrArray['perm'])) {
+                        if (!rex::getUser()->hasPerm($attrArray['perm'])) {
+                            $hideByTabPerm = true;
+                            break;
+                        }
+                    }
 
                     // tabindex entfernen, macht bei einer legend wenig sinn
                     $attr = preg_replace('@tabindex="[^"]*"@', '', $attr);
