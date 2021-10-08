@@ -76,7 +76,7 @@ $(document).on('rex:ready', function (event, container) {
 
 	// _glob prefix check
 	$('#rex-page-global-settings-fields form#rex-addon-editmode').submit(function(e) {
-		if ($('#rex-global-settings-field-feld-bearbeiten-erstellen-name').val().substring(0, 5) == "glob_") {
+		if ($('#global-settings-name-field').val().substring(0, 5) == "glob_") {
 			alert('Don\' use glob_ as prefix!');
 			e.preventDefault();
 		}
