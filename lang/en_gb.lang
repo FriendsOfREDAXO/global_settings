@@ -18,6 +18,7 @@ global_settings_field_label_function = Function
 global_settings_field_label_functions = Functions
 global_settings_field_label_id = Id
 global_settings_field_label_type = Type
+global_settings_field_label_note = Notice
 global_settings_field_label_attributes = Attributes
 global_settings_field_label_callback = Callback
 global_settings_field_label_callback_templates = Callback templates

@@ -18,6 +18,7 @@ global_settings_field_label_function = Funktion
 global_settings_field_label_functions = Funktioner
 global_settings_field_label_id = Id
 global_settings_field_label_type = Fälttyp
+global_settings_field_label_note = Notis
 global_settings_field_label_attributes = Fältattribut
 global_settings_field_label_callback = Callback
 global_settings_field_label_callback_templates = Callback mallar
