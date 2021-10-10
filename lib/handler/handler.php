@@ -584,7 +584,7 @@ abstract class rex_global_settings_handler
 			$s .= '</div>'; // close tab panel
 
 			$tabControl = '<div>';
-			$tabControl = '<ul class="global-settings nav nav-tabs" role="tablist">';
+			$tabControl = '<div class="nav"><ul class="global-settings nav nav-tabs" role="tablist">';
 
 			for ($i = 0; $i < count($tabs); $i++) {
 				if ($i == 0) {
@@ -596,7 +596,7 @@ abstract class rex_global_settings_handler
 				$tabControl .= '<li role="presentation" class="' . $class . '"><a href="#' . $tabs[$i]['id'] . '" aria-controls="' . $tabs[$i]['id'] . '" role="tab" data-toggle="tab">' . $tabs[$i]['name'] . '</a></li>';
 			}
 
-			$tabControl .= '</ul>';
+			$tabControl .= '</ul></div>';
 			$tabControl .= '<div class="tab-content">';
 			$tabControl .= $s;
 			$tabControl .= '</div>';
