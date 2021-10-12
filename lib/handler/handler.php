@@ -24,6 +24,9 @@ abstract class rex_global_settings_handler
 
         $activeItem = isset($epParams['activeItem']) ? $epParams['activeItem'] : null;
 
+        $fieldWithinTab = false;
+        $hideByTabPerm = false;
+
         $sqlFields->reset();
         for ($i = 0; $i < $sqlFields->getRows(); $i++, $sqlFields->next()) {
             // Umschliessendes Tag von Label und Formularelement
@@ -31,6 +34,7 @@ abstract class rex_global_settings_handler
             $tag_attr = '';
 
             $name = $sqlFields->getValue('name');
+            $notice = $sqlFields->getValue('notice');
             $title = $sqlFields->getValue('title');
             $params = $sqlFields->getValue('params');
             $typeLabel = $sqlFields->getValue('label');
@@ -38,11 +42,15 @@ abstract class rex_global_settings_handler
             $dblength = $sqlFields->getValue('dblength');
 
             $attrArray = rex_string::split($attr);
-            if (isset($attrArray['perm'])) {
+            if (isset($attrArray['perm']) && $typeLabel !== 'tab') {
                 if (!rex::getUser()->hasPerm($attrArray['perm'])) {
                     continue;
                 }
                 unset($attrArray['perm']);
+            }
+
+            if($typeLabel !== 'tab' && $fieldWithinTab && $hideByTabPerm) {
+                continue;
             }
 
             $defaultValue = $sqlFields->getValue('default');
@@ -94,6 +102,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -119,6 +128,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -226,6 +236,7 @@ abstract class rex_global_settings_handler
                         $e = [];
                         $e['label'] = $label;
                         $e['field'] = $field;
+                        $e['note'] = $notice;
                         $fragment = new rex_fragment();
                         $fragment->setVar('elements', [$e], false);
                         $field = $fragment->parse('core/form/form.php');
@@ -292,6 +303,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -327,6 +339,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -349,6 +362,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -363,11 +377,28 @@ abstract class rex_global_settings_handler
                     $attr = preg_replace('@tabindex="[^"]*"@', '', $attr);
 
                     $field = '<legend id="' . $id . '"' . $attr . '>' . $label . '</legend>';
+
+                    /**
+                     * add notice to legend
+                     */
+                    if($notice) {
+                        $field .= '<dl class="rex-form-group form-group"><dt></dt><dd><p class="help-block rex-note">'.$notice.'</p></dd></dl>';
+                    }
+
                     break;
                 case 'tab':
                     $tag = '';
                     $tag_attr = '';
                     $labelIt = false;
+                    $fieldWithinTab = true;
+                    $hideByTabPerm = false;
+
+                    if (isset($attrArray['perm'])) {
+                        if (!rex::getUser()->hasPerm($attrArray['perm'])) {
+                            $hideByTabPerm = true;
+                            break;
+                        }
+                    }
 
                     // tabindex entfernen, macht bei einer legend wenig sinn
                     $attr = preg_replace('@tabindex="[^"]*"@', '', $attr);
@@ -380,7 +411,14 @@ abstract class rex_global_settings_handler
 						$field = '</div><div role="tabpanel" class="tab-pane" id="' . $id . '">';
 					}
 
-					$tabs[] = ['name' => $label, 'id' => $id];
+                    /**
+                     * add notice to tabs
+                     */
+                    if($notice) {
+                        $field .= '<dl class="rex-form-group form-group"><dt></dt><dd><p class="help-block rex-note">'.$notice.'</p></dd></dl>';
+                    }
+
+                    $tabs[] = ['name' => $label, 'id' => $id];
 
                     break;
                 case 'REX_MEDIA_WIDGET':
@@ -411,6 +449,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -446,6 +485,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -476,6 +516,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -507,6 +548,7 @@ abstract class rex_global_settings_handler
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
+                    $e['note'] = $notice;
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -542,7 +584,7 @@ abstract class rex_global_settings_handler
 			$s .= '</div>'; // close tab panel
 
 			$tabControl = '<div>';
-			$tabControl = '<ul class="global-settings nav nav-tabs" role="tablist">';
+			$tabControl = '<div class="nav"><ul class="global-settings nav nav-tabs" role="tablist">';
 
 			for ($i = 0; $i < count($tabs); $i++) {
 				if ($i == 0) {
@@ -554,7 +596,7 @@ abstract class rex_global_settings_handler
 				$tabControl .= '<li role="presentation" class="' . $class . '"><a href="#' . $tabs[$i]['id'] . '" aria-controls="' . $tabs[$i]['id'] . '" role="tab" data-toggle="tab">' . $tabs[$i]['name'] . '</a></li>';
 			}
 
-			$tabControl .= '</ul>';
+			$tabControl .= '</ul></div>';
 			$tabControl .= '<div class="tab-content">';
 			$tabControl .= $s;
 			$tabControl .= '</div>';

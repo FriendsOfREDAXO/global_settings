@@ -18,6 +18,7 @@ global_settings_field_label_function = función
 global_settings_field_label_functions = características
 global_settings_field_label_id = identificación
 global_settings_field_label_type = tipo de campo
+global_settings_field_label_note = Nota
 global_settings_field_label_attributes = atributos de campo
 global_settings_field_label_callback = devolución de llamada
 global_settings_field_label_callback_templates = Plantillas de devolución de llamada

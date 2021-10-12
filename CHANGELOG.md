@@ -1,9 +1,13 @@
 # Globale Einstellungen - Changelog
 
 ## Version 2.6.0
+- Rechte der Tabs werden an Felder vererbt
+- Felder und Tabs können Notizen hinzugefügt werden
+- Verwendete Medien werden vor dem löschen geschützt
+
+## Version 2.5.1
 - Replaced data-path by cache @alexplus.de
 - Spanish translation @nandes2062 
-
 
 ## Version 2.5.0
 

@@ -72,4 +72,6 @@ if (rex::isBackend()) {
 	rex_extension::register('GLOBAL_SETTINGS_CHANGED', function () {
 		rex_global_settings::deleteCache();
 	});
+
+    rex_extension::register('MEDIA_IS_IN_USE', 'rex_global_settings_helper::isMediaInUse');
 }

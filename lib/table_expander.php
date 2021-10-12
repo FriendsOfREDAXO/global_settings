@@ -53,6 +53,9 @@ class rex_global_settings_table_expander extends rex_form
         $field->setLabel(rex_i18n::msg('global_settings_field_label_title'));
         $field->setNotice(rex_i18n::msg('global_settings_field_notice_title'));
 
+        $field = $this->addTextField('notice');
+        $field->setLabel(rex_i18n::msg('global_settings_field_label_note'));
+
         $gq = rex_sql::factory();
         $gq->setQuery('SELECT dbtype,id FROM ' . rex::getTablePrefix() . 'global_settings_type');
         $textFields = [];
