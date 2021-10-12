@@ -99,4 +99,5 @@ MIT-Lizenz, siehe `LICENSE.md` des AddOns und Release notes
 * @Sysix
 * @polarpixel
 * @skerbis
+* @alxndr-w
 
