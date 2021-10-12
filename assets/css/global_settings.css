@@ -65,13 +65,13 @@ body.rex-theme-dark .global-settings.nav-tabs > li > a:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-	body:not(.rex-theme-light) .global-settings.nav-tabs {
+	body[class^="rex-theme"]:not(.rex-theme-light) .global-settings.nav-tabs {
 		border-bottom: 1px solid #1a3332;
 	}
 
-	body:not(.rex-theme-light) .global-settings.nav-tabs > li.active > a,
-	body:not(.rex-theme-light) .global-settings.nav-tabs > li.active > a:hover,
-	body:not(.rex-theme-light) .global-settings.nav-tabs > li.active > a:focus {
+	body[class^="rex-theme"]:not(.rex-theme-light) .global-settings.nav-tabs > li.active > a,
+	body[class^="rex-theme"]:not(.rex-theme-light) .global-settings.nav-tabs > li.active > a:hover,
+	body[class^="rex-theme"]:not(.rex-theme-light) .global-settings.nav-tabs > li.active > a:focus {
 		background-color: #1f3d3c;
 		border: 1px solid #1a3332;
 		border-bottom: 1px solid #1f3d3c;
@@ -79,13 +79,13 @@ body.rex-theme-dark .global-settings.nav-tabs > li > a:hover {
 		color: #c5cbcb;
 	}
 
-	body:not(.rex-theme-light) .global-settings.nav-tabs > li > a {
+	body[class^="rex-theme"]:not(.rex-theme-light) .global-settings.nav-tabs > li > a {
 		color: #8d8d8d;
 		background-color: #1a3332;
 		border-color: transparent;
 	}
 
-	body:not(.rex-theme-light) .global-settings.nav-tabs > li > a:hover {
+	body[class^="rex-theme"]:not(.rex-theme-light) .global-settings.nav-tabs > li > a:hover {
 		color: #c5cbcb;
 	}
 }
