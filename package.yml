@@ -8,7 +8,7 @@ page:
     pjax: true
     icon: rex-icon fa-wrench
     subpages:
-        settings: { title: 'translate:settings', perm: global_settings[settings] }
+        settings: { title: 'translate:settings', perm: 'global_settings[settings]' }
         fields: { title: 'translate:fields', perm: 'admin[]' }
         help:
             title: 'translate:help'
