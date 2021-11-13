@@ -1,5 +1,8 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.6.1
+- fixed: Datei im Medienpool kann nicht gelöscht werden #35
+
 ## Version 2.6.0
 - Rechte der Tabs werden an Felder vererbt
 - Felder und Tabs können Notizen hinzugefügt werden
