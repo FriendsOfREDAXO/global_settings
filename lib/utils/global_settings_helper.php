@@ -7,7 +7,7 @@ class rex_global_settings_helper {
         $fileName = rex_string::sanitizeHtml($params['filename']);
 
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT `name` FROM `' . rex::getTablePrefix() . 'global_settings_field` WHERE `type_id` IN(6,9)');
+        $sql->setQuery('SELECT `name` FROM `' . rex::getTablePrefix() . 'global_settings_field` WHERE `type_id` IN(6,7)');
         $rows = $sql->getRows();
 
         /**
@@ -20,10 +20,12 @@ class rex_global_settings_helper {
             $sql->next();
         }
 
-        $sql = rex_sql::factory();
-        $sql->setQuery('SELECT * FROM ' . rex::getTablePrefix() . 'global_settings` WHERE  ' . $fileName . ' IN(' . join(',', $in) . ')');
-        $rows = $sql->getRows();
-        $columns = $sql->getArray();
+        if( !empty($in) ){
+            $sql = rex_sql::factory();
+            $sql->setQuery('SELECT * FROM ' . rex::getTablePrefix() . 'global_settings` WHERE  ' . $fileName . ' IN(' . join(',', $in) . ')');
+            $rows = $sql->getRows();
+            $columns = $sql->getArray();
+        }
 
         /**
          * if filename does not exist
