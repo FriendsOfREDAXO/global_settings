@@ -1,5 +1,8 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.6.2
+- fixed: Notice-Spalte bei Update hinzufügen #36
+
 ## Version 2.6.1
 - fixed: Datei im Medienpool kann nicht gelöscht werden #35
 
