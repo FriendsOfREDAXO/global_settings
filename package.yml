@@ -1,5 +1,5 @@
 package: global_settings
-version: '2.6.2'
+version: '2.6.3-dev'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/global_settings
 page:
