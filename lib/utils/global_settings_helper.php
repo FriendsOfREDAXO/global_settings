@@ -22,7 +22,7 @@ class rex_global_settings_helper {
 
         if( !empty($in) ){
             $sql = rex_sql::factory();
-            $sql->setQuery('SELECT * FROM `' . rex::getTablePrefix() . 'global_settings` WHERE  `' . $fileName . '` IN(' . join(',', $in) . ')');
+            $sql->setQuery('SELECT * FROM `' . rex::getTablePrefix() . 'global_settings` WHERE  "' . $fileName . '" IN(' . join(',', $in) . ')');
             $rows = $sql->getRows();
             $columns = $sql->getArray();
         }
