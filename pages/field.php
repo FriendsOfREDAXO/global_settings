@@ -52,7 +52,7 @@ if ($func == '') {
     // replace LIKE wildcards
     $likePrefix = str_replace(['_', '%'], ['\_', '\%'], $prefix);
 
-    $list = rex_global_settings_list::factory('SELECT id, name FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE `name` LIKE "' . $likePrefix . '%" ORDER BY priority');
+    $list = rex_global_settings_list::factory('SELECT id, name, title FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE `name` LIKE "' . $likePrefix . '%" ORDER BY priority');
     $list->addTableAttribute('class', 'table-striped');
 
     $tdIcon = '<i class="rex-icon rex-icon-metainfo"></i>';
@@ -68,6 +68,9 @@ if ($func == '') {
     $list->setColumnLabel('name', rex_i18n::msg('global_settings_field_label_name'));
     $list->setColumnLayout('name', ['<th>###VALUE###</th>', '<td>###VALUE###</td>']);
     $list->setColumnParams('name', ['func' => 'edit', 'field_id' => '###id###']);
+	
+    $list->setColumnLabel('title', rex_i18n::msg('global_settings_field_label_title'));
+    $list->setColumnLayout('title', ['<th>###VALUE###</th>', '<td>###VALUE###</td>']);
 
     $list->addColumn(rex_i18n::msg('global_settings_field_label_functions'), '<i class="rex-icon rex-icon-edit"></i> ' . rex_i18n::msg('edit'));
     $list->setColumnLayout(rex_i18n::msg('global_settings_field_label_functions'), ['<th class="rex-table-action" colspan="2">###VALUE###</th>', '<td class="rex-table-action">###VALUE###</td>']);
