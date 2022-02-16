@@ -1,5 +1,9 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.7.0
+- update: Textfelder werden jetzt als "mediumtext" angelegt
+
+
 ## Version 2.6.2
 - fixed: Notice-Spalte bei Update hinzufügen #36
 

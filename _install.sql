@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `%TABLE_PREFIX%global_settings_type` (
 
 INSERT INTO %TABLE_PREFIX%global_settings_type VALUES
     (1,  'text', 'text', 0),
-    (2,  'textarea', 'text', 0),
+    (2,  'textarea', 'mediumtext', 0),
     (3,  'select', 'varchar', 255),
     (4,  'radio', 'varchar', 255),
     (5,  'checkbox', 'varchar', 255),
