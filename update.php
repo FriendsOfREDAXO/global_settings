@@ -24,7 +24,8 @@ $sql = rex_sql::factory(1);
 $sql->prepareQuery('SELECT name FROM rex_global_settings_field WHERE type_id =:type_id');
 $sql->execute(['type_id' => '2']);
 $results = $sql->getArray();
-
-foreach ($results as $result) {
-    rex_sql_table::get(rex::getTable('global_settings'))->ensureColumn(new rex_sql_column($result['name'], 'mediumtext', true, NULL))->ensure();
+if($results) {
+    foreach ($results as $result) {
+        rex_sql_table::get(rex::getTable('global_settings'))->ensureColumn(new rex_sql_column($result['name'], 'mediumtext', true, NULL))->ensure();
+    }
 }
