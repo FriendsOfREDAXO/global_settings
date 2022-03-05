@@ -1,4 +1,6 @@
 <?php
+$addon = rex_addon::get('global_settings');
+
 rex_sql_table::get(rex::getTable('global_settings_field'))
     ->ensurePrimaryIdColumn()
     ->ensureColumn(new rex_sql_column('title', 'varchar(255)', true, NULL))
@@ -20,7 +22,7 @@ rex_sql_table::get(rex::getTable('global_settings_field'))
     ->ensure();
 
 //update existing textarea fields from text to mediumtext
-if (rex_addon::get('global_settings')->getProperty('version') <= '2.7.1') {
+if (rex_string::versionCompare($addon->getVersion(), '2.7.1', '<=')) {
     $sql = rex_sql::factory(1);
     $sql->prepareQuery('SELECT name FROM rex_global_settings_field WHERE type_id =:type_id');
     $sql->execute(['type_id' => '2']);
