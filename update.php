@@ -18,3 +18,16 @@ rex_sql_table::get(rex::getTable('global_settings_field'))
     ->ensureColumn(new rex_sql_column('updatedate', 'datetime'))
     ->ensureIndex(new rex_sql_index('name', ['name'], rex_sql_index::UNIQUE))
     ->ensure();
+
+//update existing textarea fields from text to mediumtext
+if (rex_addon::get('global_settings')->getProperty('version') <= '2.7.1') {
+    $sql = rex_sql::factory(1);
+    $sql->prepareQuery('SELECT name FROM rex_global_settings_field WHERE type_id =:type_id');
+    $sql->execute(['type_id' => '2']);
+    $results = $sql->getArray();
+    if($results) {
+        foreach ($results as $result) {
+            rex_sql_table::get(rex::getTable('global_settings'))->ensureColumn(new rex_sql_column($result['name'], 'mediumtext', true, NULL))->ensure();
+        }
+    }
+}
