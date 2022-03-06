@@ -13,6 +13,7 @@ global_settings_field_list_caption = Fields
 global_settings_field_fieldset = Create and edit fields
 global_settings_field_label_prefix = Prefix
 global_settings_field_label_title = Field title
+global_settings_field_label_output = Output
 global_settings_field_label_name = Field name
 global_settings_field_label_function = Function
 global_settings_field_label_functions = Functions
