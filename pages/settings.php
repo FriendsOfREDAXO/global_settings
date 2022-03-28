@@ -15,6 +15,10 @@ if ($clangId < 1) {
 	$clangId = 1;
 }
 
+if(rex_clang::exists($clangId)) {
+    rex_clang::setCurrentId($clangId);
+}
+
 $global_settingsHandler = new rex_global_settings_global_settings_handler();
 $form = $global_settingsHandler->getForm([
     'clang' => $clangId
