@@ -164,7 +164,7 @@ class rex_global_settings_table_expander extends rex_form
 
     public function stripPrefix($string)
     {
-        $lowerString = strtolower($string);
+        $lowerString = strtolower($string ?? '');
         if (substr($lowerString, 0, strlen($this->metaPrefix)) === $this->metaPrefix) {
             return substr($string, strlen($this->metaPrefix));
         }
