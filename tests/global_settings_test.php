@@ -38,6 +38,7 @@ test('expect the cache to be cleared', function ()
 
 test('expect the value to be set', function ()
 {
+    rex_global_settings::deleteCache();
     rex_global_settings::init();
     $returnValue = rex_global_settings::setValue(getName('test_name'), null, 'Hallo');
     expect($returnValue)->toBeTrue();
@@ -45,6 +46,7 @@ test('expect the value to be set', function ()
 
 test('expect to get the value', function ()
 {
+    rex_global_settings::deleteCache();
     rex_global_settings::init();
     $returnValue = rex_global_settings::getValue(getName('test_name'), null);
     expect($returnValue)->toEqual('Hallo');
