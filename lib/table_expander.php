@@ -21,7 +21,7 @@ class rex_global_settings_table_expander extends rex_form
 
         $field = $this->addTextField('name');
         $field->setLabel(rex_i18n::msg('global_settings_field_label_name'));
-		$field->setAttribute('id', 'global-settings-name-field');
+        $field->setAttribute('id', 'global-settings-name-field');
 
         $field = $this->addSelectField('priority');
         $field->setLabel(rex_i18n::msg('global_settings_field_label_priority'));
@@ -254,7 +254,8 @@ class rex_global_settings_table_expander extends rex_form
                         $upd->setValue($fieldName, $fieldDefault);
                         $upd->update();
                         return true;
-                    } catch (rex_sql_exception $e) {
+                    }
+                    catch (rex_sql_exception $e) {
                         return false;
                     }
                 }

@@ -1,7 +1,9 @@
 <?php
 
-class rex_global_settings_helper {
-    public static function isMediaInUse(\rex_extension_point $ep) {
+class rex_global_settings_helper
+{
+    public static function isMediaInUse(\rex_extension_point $ep)
+    {
         $params = $ep->getParams();
         $warning = $ep->getSubject();
         $fileName = rex_string::sanitizeHtml($params['filename']);
@@ -20,7 +22,7 @@ class rex_global_settings_helper {
             $sql->next();
         }
 
-        if( !empty($in) ){
+        if (!empty($in)) {
             $sql = rex_sql::factory();
             $sql->setQuery('SELECT * FROM `' . rex::getTablePrefix() . 'global_settings` WHERE  "' . $fileName . '" IN(' . join(',', $in) . ')');
             $rows = $sql->getRows();

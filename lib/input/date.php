@@ -2,9 +2,9 @@
 
 class rex_global_settings_input_date extends rex_global_settings_input
 {
-    private $yearSelect;
-    private $monthSelect;
-    private $daySelect;
+    public $yearSelect;
+    public $monthSelect;
+    public $daySelect;
 
     public function __construct()
     {
@@ -82,7 +82,7 @@ class rex_global_settings_input_date extends rex_global_settings_input
     public function getHtml()
     {
         return $this->daySelect->get() .
-                     $this->monthSelect->get() .
-                     $this->yearSelect->get();
+            $this->monthSelect->get() .
+            $this->yearSelect->get();
     }
 }

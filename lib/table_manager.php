@@ -36,7 +36,8 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        }
+        catch (rex_sql_exception $e) {
             return false;
         }
     }
@@ -61,7 +62,8 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        }
+        catch (rex_sql_exception $e) {
             return false;
         }
     }
@@ -74,7 +76,8 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        }
+        catch (rex_sql_exception $e) {
             return false;
         }
     }
@@ -97,7 +100,8 @@ class rex_global_settings_table_manager
             $sql = rex_sql::factory($this->DBID);
             $sql->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        }
+        catch (rex_sql_exception $e) {
             return false;
         }
     }

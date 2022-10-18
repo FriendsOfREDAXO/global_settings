@@ -2,7 +2,7 @@
 $content = '';
 
 if (rex_post('savemeta', 'boolean')) {
-	rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
+    rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
 
     $content = rex_view::success(rex_i18n::msg('global_settings_metadata_saved'));
 }
@@ -12,10 +12,10 @@ $panel = '<input type="hidden" name="save" value="1" />';
 $clangId = filter_var(rex_be_controller::getCurrentPagePart(3), FILTER_SANITIZE_NUMBER_INT);
 
 if ($clangId < 1) {
-	$clangId = 1;
+    $clangId = 1;
 }
 
-if(rex_clang::exists($clangId)) {
+if (rex_clang::exists($clangId)) {
     rex_clang::setCurrentId($clangId);
 }
 
@@ -46,7 +46,7 @@ $content .= $fragment->parse('core/page/section.php');
 $action = 'index.php?page=global_settings/settings';
 
 if (count(rex_clang::getAll()) > 1) {
-	$action .= '/clang' . $clangId;
+    $action .= '/clang' . $clangId;
 }
 
 

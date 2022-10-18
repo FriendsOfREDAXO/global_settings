@@ -1,30 +1,33 @@
 <?php
 
-function rex_global_settings_clang_added($ep) {
-	$params = $ep->getParams();
-	$newClangId = $params['clang']->getId();
+function rex_global_settings_clang_added($ep)
+{
+    $params = $ep->getParams();
+    $newClangId = $params['clang']->getId();
 
-	$sql = rex_sql::factory();
+    $sql = rex_sql::factory();
     $sql->setQuery('INSERT INTO `' . rex::getTablePrefix() . 'global_settings` (`clang`) VALUES (' . $newClangId . ')');
 }
 
-function rex_global_settings_clang_deleted($ep) {
-	$params = $ep->getParams();
-	$id = $params['id'];
+function rex_global_settings_clang_deleted($ep)
+{
+    $params = $ep->getParams();
+    $id = $params['id'];
 
-	$sql = rex_sql::factory();
+    $sql = rex_sql::factory();
     $sql->setQuery('DELETE FROM `' . rex::getTablePrefix() . 'global_settings` WHERE `clang` = ' . $id);
 }
 
-function rex_global_settings_check_langs() {
-   foreach (rex_clang::getAll() as $clang) {
+function rex_global_settings_check_langs()
+{
+    foreach (rex_clang::getAll() as $clang) {
         $sql = rex_sql::factory();
         $sql->setQuery('SELECT `clang` FROM ' . rex::getTablePrefix() . 'global_settings WHERE `clang` = ' . $clang->getId());
 
         switch ($sql->getRows()) {
             case 0:
                 $sql = rex_sql::factory();
-			    $sql->setQuery('INSERT INTO `' . rex::getTablePrefix() . 'global_settings` (`clang`) VALUES (' . $clang->getId() . ')');
+                $sql->setQuery('INSERT INTO `' . rex::getTablePrefix() . 'global_settings` (`clang`) VALUES (' . $clang->getId() . ')');
                 break;
             case 1:
                 // clang is in the database
@@ -158,8 +161,7 @@ function rex_global_settings_delete_field($fieldIdOrName)
     if (is_int($fieldIdOrName)) {
         $fieldQry = 'SELECT * FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE id=:idOrName LIMIT 2';
         $invalidField = rex_i18n::msg('global_settings_field_error_invalid_fieldid');
-    }
-    // Löschen anhand des Feldnames
+    } // Löschen anhand des Feldnames
     elseif (is_string($fieldIdOrName)) {
         $fieldQry = 'SELECT * FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE name=:idOrName LIMIT 2';
         $invalidField = rex_i18n::msg('global_settings_field_error_invalid_name');

@@ -66,13 +66,13 @@ class rex_global_settings_global_settings_handler extends rex_global_settings_ha
         // Hier die category_id setzen, damit beim klick auf den REX_LINK_BUTTON der Medienpool in der aktuellen Kategorie startet
         //$params['activeItem']->setValue('category_id', $OOArt->getCategoryId());
 
-	 $sql = rex_sql::factory();
+        $sql = rex_sql::factory();
         //$sql->setDebug();
         $sql->setTable(rex::getTablePrefix() . 'global_settings');
         $sql->setWhere('clang=:clang', ['clang' => $params['clang']]);
-		$sql->select('*');
-		$params['activeItem'] = $sql;
-		$params['activeItem']->setValue('category_id', 0); // othewise notice
+        $sql->select('*');
+        $params['activeItem'] = $sql;
+        $params['activeItem']->setValue('category_id', 0); // othewise notice
 
         return parent::renderFormAndSave(self::PREFIX, $params);
     }

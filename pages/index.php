@@ -19,10 +19,10 @@ switch ($subpage) {
 }
 
 if ($subpage == 'fields') {
-	$metaTable = rex_global_settings_meta_table($prefix);
-	require $Basedir . '/field.php';
+    $metaTable = rex_global_settings_meta_table($prefix);
+    require $Basedir . '/field.php';
 } elseif ($subpage == 'help') {
-	require $Basedir . '/help.' . rex_be_controller::getCurrentPagePart(3) . '.php';
+    require $Basedir . '/help.' . rex_be_controller::getCurrentPagePart(3) . '.php';
 } elseif ($subpage == 'settings') {
-	require $Basedir . '/settings.php';
+    require $Basedir . '/settings.php';
 }

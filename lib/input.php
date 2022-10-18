@@ -121,7 +121,7 @@ abstract class rex_global_settings_input
     {
         switch ($inputType) {
             case 'text':
-			case 'colorpicker':
+            case 'colorpicker':
             case 'textarea':
             case 'select':
             case 'categoryselect':
