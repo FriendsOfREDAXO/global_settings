@@ -635,6 +635,8 @@ abstract class rex_global_settings_handler
             return;
         }
 
+        $isRestrictedTab = false;
+
         for ($i = 0; $i < $sqlFields->getRows(); $i++, $sqlFields->next()) {
             $fieldName = $sqlFields->getValue('name');
             $fieldType = $sqlFields->getValue('type_id');
@@ -642,11 +644,30 @@ abstract class rex_global_settings_handler
 
             // dont save restricted fields
             $attrArray = rex_string::split($fieldAttributes);
+
+            /**
+             * check if the field is a tab
+             * check permissions
+             */
+            if ($fieldType === REX_GLOBAL_SETTINGS_FIELD_TAB) {
+                if (isset($attrArray['perm'])) {
+                    if (!rex::getUser()->hasPerm($attrArray['perm'])) {
+                        $isRestrictedTab = true;
+                    }
+                } else {
+                    $isRestrictedTab = false;
+                }
+            }
+
             if (isset($attrArray['perm'])) {
                 if (!rex::getUser()->hasPerm($attrArray['perm'])) {
                     continue;
                 }
                 unset($attrArray['perm']);
+            }
+
+            if ($isRestrictedTab) {
+                continue;
             }
 
             // Wert in SQL zum speichern
