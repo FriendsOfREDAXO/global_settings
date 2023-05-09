@@ -52,7 +52,7 @@ class rex_global_settings
 
     public static function deleteCache()
     {
-        if (file_exists(self::$cacheFile)) {
+        if (isset(self::$cacheFile) && file_exists(self::$cacheFile)) {
             return unlink(self::$cacheFile);
         }
 
