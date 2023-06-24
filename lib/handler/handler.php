@@ -55,14 +55,14 @@ abstract class rex_global_settings_handler
 
             $defaultValue = $sqlFields->getValue('default');
             if ($activeItem) {
-                $itemValue = $activeItem->getValue($name);
+                $itemValue = (string)$activeItem->getValue($name);
 
                 if (strpos($itemValue, '|+|') !== false) {
                     // Alte notation mit |+| als Trenner
-                    $dbvalues = explode('|+|', $activeItem->getValue($name));
+                    $dbvalues = explode('|+|', (string)$activeItem->getValue($name));
                 } else {
                     // Neue Notation mit | als Trenner
-                    $dbvalues = explode('|', $activeItem->getValue($name));
+                    $dbvalues = explode('|', (string)$activeItem->getValue($name));
                 }
             } else {
                 $dbvalues = (array)$sqlFields->getValue('default');

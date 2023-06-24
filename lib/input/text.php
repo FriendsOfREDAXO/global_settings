@@ -11,7 +11,7 @@ class rex_global_settings_input_text extends rex_global_settings_input
 
     public function getHtml()
     {
-        $value = htmlspecialchars($this->value);
+        $value = htmlspecialchars((string)$this->value);
         return '<input' . $this->getAttributeString() . ' value="' . $value . '" />';
     }
 }
