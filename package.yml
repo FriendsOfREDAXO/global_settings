@@ -21,3 +21,12 @@ requires:
     redaxo: '^5.7'
     php:
         version: '>=7.4'
+
+installer_ignore:
+    - .git
+    - .gitignore
+    - composer.json
+    - composer.lock
+    - phpunit.xml.dist
+    - tests
+    - .tools
