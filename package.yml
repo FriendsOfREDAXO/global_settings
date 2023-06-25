@@ -1,5 +1,5 @@
 package: global_settings
-version: '2.8.4'
+version: '2.8.5'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/global_settings
 page:
@@ -18,9 +18,9 @@ page:
                 changelog: { title: 'translate:help_changelog' }
                 license: { title: 'translate:help_license' }
 requires:
-    redaxo: '^5.7'
+    redaxo: '^5.13'
     php:
-        version: '>=7.4'
+        version: '>=8.0'
 
 installer_ignore:
     - .git
