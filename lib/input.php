@@ -32,7 +32,7 @@ abstract class rex_global_settings_input
      */
     public function setAttribute($name, $value)
     {
-        if ($name == 'value') {
+        if ('value' == $name) {
             $this->value = $value;
         } else {
             $this->attributes[$name] = $value;
@@ -44,9 +44,10 @@ abstract class rex_global_settings_input
      */
     public function getAttribute($name, $default = null)
     {
-        if ($name == 'value') {
+        if ('value' == $name) {
             return $this->getValue();
-        } elseif (isset($this->attributes[$name])) {
+        }
+        if (isset($this->attributes[$name])) {
             return $this->attributes[$name];
         }
 

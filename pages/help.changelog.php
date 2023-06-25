@@ -1,4 +1,5 @@
 <?php
+
 [$Toc, $Content] = rex_markdown::factory()->parseWithToc(rex_file::require($this->getPath('CHANGELOG.md')), 2, 3, false);
 
 $fragment = new rex_fragment();

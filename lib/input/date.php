@@ -47,11 +47,11 @@ class rex_global_settings_input_date extends rex_global_settings_input
 
     public function setAttribute($name, $value)
     {
-        if ($name == 'name') {
+        if ('name' == $name) {
             $this->yearSelect->setName($value . '[year]');
             $this->monthSelect->setName($value . '[month]');
             $this->daySelect->setName($value . '[day]');
-        } elseif ($name == 'id') {
+        } elseif ('id' == $name) {
             $this->yearSelect->setId($value . '_year');
             $this->monthSelect->setId($value . '_month');
             $this->daySelect->setId($value);

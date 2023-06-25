@@ -1,4 +1,5 @@
 <?php
+
 $content = '';
 
 if (rex_post('savemeta', 'boolean')) {
@@ -21,7 +22,7 @@ if (rex_clang::exists($clangId)) {
 
 $global_settingsHandler = new rex_global_settings_global_settings_handler();
 $form = $global_settingsHandler->getForm([
-    'clang' => $clangId
+    'clang' => $clangId,
 ]);
 
 $panel .= $form;
@@ -48,7 +49,6 @@ $action = 'index.php?page=global_settings/settings';
 if (count(rex_clang::getAll()) > 1) {
     $action .= '/clang' . $clangId;
 }
-
 
 echo '
     <form action="' . $action . '" method="post" enctype="multipart/form-data">

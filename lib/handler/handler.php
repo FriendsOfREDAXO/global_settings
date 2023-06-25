@@ -22,7 +22,7 @@ abstract class rex_global_settings_handler
         $link_id = 1;
         $llist_id = 1;
 
-        $activeItem = isset($epParams['activeItem']) ? $epParams['activeItem'] : null;
+        $activeItem = $epParams['activeItem'] ?? null;
 
         $fieldWithinTab = false;
         $hideByTabPerm = false;
@@ -42,33 +42,33 @@ abstract class rex_global_settings_handler
             $dblength = $sqlFields->getValue('dblength');
 
             $attrArray = rex_string::split($attr);
-            if (isset($attrArray['perm']) && $typeLabel !== 'tab') {
+            if (isset($attrArray['perm']) && 'tab' !== $typeLabel) {
                 if (!rex::getUser()->hasPerm($attrArray['perm'])) {
                     continue;
                 }
                 unset($attrArray['perm']);
             }
 
-            if ($typeLabel !== 'tab' && $fieldWithinTab && $hideByTabPerm) {
+            if ('tab' !== $typeLabel && $fieldWithinTab && $hideByTabPerm) {
                 continue;
             }
 
             $defaultValue = $sqlFields->getValue('default');
             if ($activeItem) {
-                $itemValue = (string)$activeItem->getValue($name);
+                $itemValue = (string) $activeItem->getValue($name);
 
-                if (strpos($itemValue, '|+|') !== false) {
+                if (str_contains($itemValue, '|+|')) {
                     // Alte notation mit |+| als Trenner
-                    $dbvalues = explode('|+|', (string)$activeItem->getValue($name));
+                    $dbvalues = explode('|+|', (string) $activeItem->getValue($name));
                 } else {
                     // Neue Notation mit | als Trenner
-                    $dbvalues = explode('|', (string)$activeItem->getValue($name));
+                    $dbvalues = explode('|', (string) $activeItem->getValue($name));
                 }
             } else {
-                $dbvalues = (array)$sqlFields->getValue('default');
+                $dbvalues = (array) $sqlFields->getValue('default');
             }
 
-            if ($title != '') {
+            if ('' != $title) {
                 $label = rex_i18n::translate($title);
             } else {
                 $label = htmlspecialchars($name);
@@ -142,11 +142,12 @@ abstract class rex_global_settings_handler
                     }
 
                     $name .= '[]';
+                    // no break
                 case 'radio':
                     $formElements = [];
 
                     $values = [];
-                    if (rex_sql::getQueryType($params) == 'SELECT') {
+                    if ('SELECT' == rex_sql::getQueryType($params)) {
                         $sql = rex_sql::factory();
                         $value_groups = $sql->getDBArray($params, [], PDO::FETCH_NUM);
                         foreach ($value_groups as $value_group) {
@@ -161,8 +162,8 @@ abstract class rex_global_settings_handler
                         foreach ($value_groups as $value_group) {
                             // check ob key:value paar
                             // und der wert beginnt nicht mit "translate:"
-                            if (strpos($value_group, ':') !== false &&
-                                strpos($value_group, 'translate:') !== 0
+                            if (str_contains($value_group, ':')
+                                && !str_starts_with($value_group, 'translate:')
                             ) {
                                 $temp = explode(':', $value_group, 2);
                                 $values[$temp[0]] = rex_i18n::translate($temp[1]);
@@ -172,7 +173,7 @@ abstract class rex_global_settings_handler
                         }
                     }
 
-                    $oneValue = (count($values) == 1);
+                    $oneValue = (1 == count($values));
 
                     $attrStr = '';
                     $classAdd = '';
@@ -183,7 +184,7 @@ abstract class rex_global_settings_handler
                         unset($attrArray[$key]);
                     }
                     foreach ($attrArray as $key => $value) {
-                        if ($key == 'class') {
+                        if ('class' == $key) {
                             $classAdd = ' ' . $value;
                         } else {
                             $attrStr = ' ' . $key . '="' . $value . '"';
@@ -191,13 +192,13 @@ abstract class rex_global_settings_handler
                     }
 
                     if (!$activeItem) {
-                        $dbvalues = (array)$defaultValue;
+                        $dbvalues = (array) $defaultValue;
                     }
 
                     foreach ($values as $key => $value) {
                         // wenn man keine Werte angibt (Boolean Chkbox/Radio)
                         // Dummy Wert annehmen, damit an/aus unterscheidung funktioniert
-                        if ($oneValue && $key == '') {
+                        if ($oneValue && '' == $key) {
                             $key = 'true';
                         }
 
@@ -223,7 +224,7 @@ abstract class rex_global_settings_handler
                     $fragment->setVar('elements', $formElements, false);
                     $fragment->setVar('inline', $inline);
 
-                    if ($typeLabel == 'radio') {
+                    if ('radio' == $typeLabel) {
                         $field = $fragment->parse('core/form/radio.php');
                     } else {
                         if (!$oneValue) {
@@ -259,7 +260,7 @@ abstract class rex_global_settings_handler
 
                         $select->setAttribute($attr_name, $attr_value);
 
-                        if ($attr_name == 'multiple') {
+                        if ('multiple' == $attr_name) {
                             $multiple = true;
                             $select->setName($name . '[]');
                             $select->setMultiple();
@@ -275,7 +276,7 @@ abstract class rex_global_settings_handler
                     // hier mit den "raw"-values arbeiten, da die rex_select klasse selbst escaped
                     $select->setSelected($dbvalues);
 
-                    if (rex_sql::getQueryType($params) == 'SELECT') {
+                    if ('SELECT' == rex_sql::getQueryType($params)) {
                         // Werte via SQL Laden
                         $select->addDBSqlOptions($params);
                     } else {
@@ -286,8 +287,8 @@ abstract class rex_global_settings_handler
                         foreach ($value_groups as $value_group) {
                             // check ob key:value paar
                             // und der wert beginnt nicht mit "translate:"
-                            if (strpos($value_group, ':') !== false &&
-                                strpos($value_group, 'translate:') !== 0
+                            if (str_contains($value_group, ':')
+                                && !str_starts_with($value_group, 'translate:')
                             ) {
                                 $temp = explode(':', $value_group, 2);
                                 $values[$temp[0]] = rex_i18n::translate($temp[1]);
@@ -314,8 +315,8 @@ abstract class rex_global_settings_handler
                 case 'datetime':
                     $tag_attr = ' class="form-control-date"';
 
-                    $active = $dbvalues[0] != 0;
-                    if ($dbvalues[0] == '') {
+                    $active = 0 != $dbvalues[0];
+                    if ('' == $dbvalues[0]) {
                         $dbvalues[0] = time();
                     }
 
@@ -379,7 +380,7 @@ abstract class rex_global_settings_handler
                     $field = '<legend id="' . $id . '"' . $attr . '>' . $label . '</legend>';
 
                     /**
-                     * add notice to legend
+                     * add notice to legend.
                      */
                     if ($notice) {
                         $field .= '<dl class="rex-form-group form-group"><dt></dt><dd><p class="help-block rex-note">' . $notice . '</p></dd></dl>';
@@ -403,16 +404,16 @@ abstract class rex_global_settings_handler
                     // tabindex entfernen, macht bei einer legend wenig sinn
                     $attr = preg_replace('@tabindex="[^"]*"@', '', $attr);
 
-                    //$field = '<tab></tab>';
+                    // $field = '<tab></tab>';
 
-                    if (count($tabs) == 0) {
+                    if (0 == count($tabs)) {
                         $field = '<div role="tabpanel" class="tab-pane active" id="' . $id . '">';
                     } else {
                         $field = '</div><div role="tabpanel" class="tab-pane" id="' . $id . '">';
                     }
 
                     /**
-                     * add notice to tabs
+                     * add notice to tabs.
                      */
                     if ($notice) {
                         $field .= '<dl class="rex-form-group form-group"><dt></dt><dd><p class="help-block rex-note">' . $notice . '</p></dd></dl>';
@@ -557,7 +558,7 @@ abstract class rex_global_settings_handler
                     break;
                 default:
                     // ----- EXTENSION POINT
-                    list($field, $tag, $tag_attr, $id, $label, $labelIt) =
+                    [$field, $tag, $tag_attr, $id, $label, $labelIt] =
                         rex_extension::registerPoint(new rex_extension_point(
                             'GLOBAL_SETTINGS_CUSTOM_FIELD',
                             [
@@ -571,7 +572,7 @@ abstract class rex_global_settings_handler
                                 'rawvalues' => $dbvalues,
                                 'type' => $typeLabel,
                                 'sql' => $sqlFields,
-                            ]
+                            ],
                         ));
             }
 
@@ -586,8 +587,8 @@ abstract class rex_global_settings_handler
             $tabControl = '<div>';
             $tabControl = '<div class="nav"><ul class="global-settings nav nav-tabs" role="tablist">';
 
-            for ($i = 0; $i < count($tabs); $i++) {
-                if ($i == 0) {
+            for ($i = 0; $i < count($tabs); ++$i) {
+                if (0 == $i) {
                     $class = 'active';
                 } else {
                     $class = '';
@@ -631,7 +632,7 @@ abstract class rex_global_settings_handler
      */
     public static function fetchRequestValues(&$params, &$sqlSave, $sqlFields)
     {
-        if (rex_request_method() != 'post') {
+        if ('post' != rex_request_method()) {
             return;
         }
 
@@ -647,9 +648,9 @@ abstract class rex_global_settings_handler
 
             /**
              * check if the field is a tab
-             * check permissions
+             * check permissions.
              */
-            if ($fieldType === REX_GLOBAL_SETTINGS_FIELD_TAB) {
+            if (REX_GLOBAL_SETTINGS_FIELD_TAB === $fieldType) {
                 if (isset($attrArray['perm'])) {
                     if (!rex::getUser()->hasPerm($attrArray['perm'])) {
                         $isRestrictedTab = true;
@@ -692,7 +693,7 @@ abstract class rex_global_settings_handler
      */
     public static function getSaveValue($fieldName, $fieldType, $fieldAttributes)
     {
-        if (rex_request_method() != 'post') {
+        if ('post' != rex_request_method()) {
             return null;
         }
 
@@ -701,21 +702,21 @@ abstract class rex_global_settings_handler
         // handle date types with timestamps
         if (isset($postValue['year']) && isset($postValue['month']) && isset($postValue['day']) && isset($postValue['hour']) && isset($postValue['minute'])) {
             if (isset($postValue['active'])) {
-                $saveValue = mktime((int)$postValue['hour'], (int)$postValue['minute'], 0, (int)$postValue['month'], (int)$postValue['day'], (int)$postValue['year']);
+                $saveValue = mktime((int) $postValue['hour'], (int) $postValue['minute'], 0, (int) $postValue['month'], (int) $postValue['day'], (int) $postValue['year']);
             } else {
                 $saveValue = 0;
             }
         } // handle date types without timestamps
         elseif (isset($postValue['year']) && isset($postValue['month']) && isset($postValue['day'])) {
             if (isset($postValue['active'])) {
-                $saveValue = mktime(0, 0, 0, (int)$postValue['month'], (int)$postValue['day'], (int)$postValue['year']);
+                $saveValue = mktime(0, 0, 0, (int) $postValue['month'], (int) $postValue['day'], (int) $postValue['year']);
             } else {
                 $saveValue = 0;
             }
         } // handle time types
         elseif (isset($postValue['hour']) && isset($postValue['minute'])) {
             if (isset($postValue['active'])) {
-                $saveValue = mktime((int)$postValue['hour'], (int)$postValue['minute'], 0, 0, 0, 0);
+                $saveValue = mktime((int) $postValue['hour'], (int) $postValue['minute'], 0, 0, 0, 0);
             } else {
                 $saveValue = 0;
             }
@@ -724,9 +725,9 @@ abstract class rex_global_settings_handler
                 // Mehrwertige Felder
                 $saveValue = '|' . implode('|', $postValue) . '|';
             } else {
-                $postValue = isset($postValue[0]) ? $postValue[0] : '';
-                if ($fieldType == REX_GLOBAL_SETTINGS_FIELD_SELECT && strpos($fieldAttributes, 'multiple') !== false ||
-                    $fieldType == REX_GLOBAL_SETTINGS_FIELD_CHECKBOX
+                $postValue = $postValue[0] ?? '';
+                if (REX_GLOBAL_SETTINGS_FIELD_SELECT == $fieldType && str_contains($fieldAttributes, 'multiple')
+                    || REX_GLOBAL_SETTINGS_FIELD_CHECKBOX == $fieldType
                 ) {
                     // Mehrwertiges Feld, aber nur ein Wert ausgewählt
                     $saveValue = '|' . $postValue . '|';
@@ -766,7 +767,7 @@ abstract class rex_global_settings_handler
                             priority';
 
         $sqlFields = rex_sql::factory();
-        //$sqlFields->setDebug();
+        // $sqlFields->setDebug();
         $sqlFields->setQuery($qry);
 
         return $sqlFields;
@@ -793,7 +794,7 @@ abstract class rex_global_settings_handler
         $params = $this->handleSave($params, $sqlFields);
 
         // trigger callback of sql fields
-        if (rex_request_method() == 'post') {
+        if ('post' == rex_request_method()) {
             $this->fireCallbacks($sqlFields);
         }
 
@@ -803,10 +804,9 @@ abstract class rex_global_settings_handler
     protected function fireCallbacks(rex_sql $sqlFields)
     {
         foreach ($sqlFields as $row) {
-            if ($row->getValue('callback') != '') {
+            if ('' != $row->getValue('callback')) {
                 // use a small sandbox, so the callback cannot affect our local variables
-                $sandboxFunc = function ($field)
-                {
+                $sandboxFunc = function ($field) {
                     // TODO add var to ref the actual table (rex_article,...)
                     $fieldName = $field->getValue('name');
                     $fieldType = $field->getValue('type_id');
@@ -847,17 +847,12 @@ abstract class rex_global_settings_handler
      * Retrieves the activeItem from the current context.
      * Afterwards the actual metaForm extension will be rendered.
      *
-     * @param rex_extension_point $ep
-     *
      * @return string
      */
     abstract public function extendForm(rex_extension_point $ep);
 
     /**
      * Retrieves the POST values from the metaform, fill it into a rex_sql object and save it to a database table.
-     *
-     * @param array $params
-     * @param rex_sql $sqlFields
      */
     abstract protected function handleSave(array $params, rex_sql $sqlFields);
 }

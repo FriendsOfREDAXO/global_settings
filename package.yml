@@ -30,3 +30,5 @@ installer_ignore:
     - phpunit.xml.dist
     - tests
     - .tools
+    - .php-cs-fixer.dist.php
+    - .php-cs-fixer.cache

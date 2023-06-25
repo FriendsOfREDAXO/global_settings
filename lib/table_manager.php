@@ -21,23 +21,22 @@ class rex_global_settings_table_manager
         $qry = 'ALTER TABLE `' . $this->getTableName() . '` ADD ';
         $qry .= '`' . $name . '` ' . $type;
 
-        if ($length != 0) {
+        if (0 != $length) {
             $qry .= '(' . $length . ')';
         }
 
-        if ($default !== null) {
-            $qry .= ' DEFAULT \'' . str_replace("'", "\'", $default) . '\'';
+        if (null !== $default) {
+            $qry .= ' DEFAULT \'' . str_replace("'", "\\'", $default) . '\'';
         }
 
-        if ($nullable !== true) {
+        if (true !== $nullable) {
             $qry .= ' NOT NULL';
         }
 
         try {
             $this->setQuery($qry);
             return true;
-        }
-        catch (rex_sql_exception $e) {
+        } catch (rex_sql_exception $e) {
             return false;
         }
     }
@@ -47,23 +46,22 @@ class rex_global_settings_table_manager
         $qry = 'ALTER TABLE `' . $this->getTableName() . '` CHANGE ';
         $qry .= '`' . $oldname . '` `' . $name . '` ' . $type;
 
-        if ($length != 0) {
+        if (0 != $length) {
             $qry .= '(' . $length . ')';
         }
 
-        if ($default !== null) {
-            $qry .= ' DEFAULT \'' . str_replace("'", "\'", $default) . '\'';
+        if (null !== $default) {
+            $qry .= ' DEFAULT \'' . str_replace("'", "\\'", $default) . '\'';
         }
 
-        if ($nullable !== true) {
+        if (true !== $nullable) {
             $qry .= ' NOT NULL';
         }
 
         try {
             $this->setQuery($qry);
             return true;
-        }
-        catch (rex_sql_exception $e) {
+        } catch (rex_sql_exception $e) {
             return false;
         }
     }
@@ -76,8 +74,7 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        }
-        catch (rex_sql_exception $e) {
+        } catch (rex_sql_exception $e) {
             return false;
         }
     }
@@ -100,8 +97,7 @@ class rex_global_settings_table_manager
             $sql = rex_sql::factory($this->DBID);
             $sql->setQuery($qry);
             return true;
-        }
-        catch (rex_sql_exception $e) {
+        } catch (rex_sql_exception $e) {
             return false;
         }
     }

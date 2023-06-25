@@ -2,7 +2,7 @@
 
 class rex_global_settings_helper
 {
-    public static function isMediaInUse(\rex_extension_point $ep)
+    public static function isMediaInUse(rex_extension_point $ep)
     {
         $params = $ep->getParams();
         $warning = $ep->getSubject();
@@ -13,7 +13,7 @@ class rex_global_settings_helper
         $rows = $sql->getRows();
 
         /**
-         * get column names
+         * get column names.
          */
         $in = [];
         for ($i = 0; $i < $rows; ++$i) {
@@ -24,32 +24,32 @@ class rex_global_settings_helper
 
         if (!empty($in)) {
             $sql = rex_sql::factory();
-            $sql->setQuery('SELECT * FROM `' . rex::getTablePrefix() . 'global_settings` WHERE  "' . $fileName . '" IN(' . join(',', $in) . ')');
+            $sql->setQuery('SELECT * FROM `' . rex::getTablePrefix() . 'global_settings` WHERE  "' . $fileName . '" IN(' . implode(',', $in) . ')');
             $rows = $sql->getRows();
             $columns = $sql->getArray();
         }
 
         /**
-         * if filename does not exist
+         * if filename does not exist.
          */
         if (0 == $rows) {
             return $warning;
         }
 
         /**
-         * get warnings
+         * get warnings.
          */
         $messages = '';
         foreach ($columns[0] as $key => $val) {
-            if (strpos($val, $fileName) !== FALSE) {
+            if (str_contains($val, $fileName)) {
                 $sql = rex_sql::factory();
                 $sql->setQuery('SELECT * FROM `' . rex::getTablePrefix() . 'global_settings_field` WHERE `name` = "' . $key . '"');
 
-                $messages .= '<li><a href="javascript:openPage(\'' . rex_url::backendPage("global_settings/settings") . '\')">' . rex_i18n::msg("global_settings_title") . ': ' . $sql->getValue("title") . '</a></li>';
+                $messages .= '<li><a href="javascript:openPage(\'' . rex_url::backendPage('global_settings/settings') . '\')">' . rex_i18n::msg('global_settings_title') . ': ' . $sql->getValue('title') . '</a></li>';
             }
         }
 
-        if ($messages !== '') {
+        if ('' !== $messages) {
             $warning[] = '<ul>' . $messages . '</ul>';
         }
 

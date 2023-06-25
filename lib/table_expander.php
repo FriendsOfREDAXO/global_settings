@@ -41,7 +41,7 @@ class rex_global_settings_table_expander extends rex_form
             $value = $sql->getValue('priority') + 1;
             $select->addOption(
                 rex_i18n::rawMsg('global_settings_field_after_priority', rex_global_settings::getStrippedField($sql->getValue('name'))),
-                $value
+                $value,
             );
             $sql->next();
         }
@@ -60,7 +60,7 @@ class rex_global_settings_table_expander extends rex_form
         $gq->setQuery('SELECT dbtype,id FROM ' . rex::getTablePrefix() . 'global_settings_type');
         $textFields = [];
         foreach ($gq->getArray() as $f) {
-            if ($f['dbtype'] == 'text') {
+            if ('text' == $f['dbtype']) {
                 $textFields[$f['id']] = $f['id'];
             }
         }
@@ -136,7 +136,7 @@ class rex_global_settings_table_expander extends rex_form
 
     protected function preSave($fieldsetName, $fieldName, $fieldValue, rex_sql $saveSql)
     {
-        if ($fieldsetName == $this->getFieldsetName() && $fieldName == 'name') {
+        if ($fieldsetName == $this->getFieldsetName() && 'name' == $fieldName) {
             // Den Namen mit Prefix speichern
             return $this->addPrefix($fieldValue);
         }
@@ -146,7 +146,7 @@ class rex_global_settings_table_expander extends rex_form
 
     protected function preView($fieldsetName, $fieldName, $fieldValue)
     {
-        if ($fieldsetName == $this->getFieldsetName() && $fieldName == 'name') {
+        if ($fieldsetName == $this->getFieldsetName() && 'name' == $fieldName) {
             // Den Namen ohne Prefix anzeigen
             return $this->stripPrefix($fieldValue);
         }
@@ -174,7 +174,7 @@ class rex_global_settings_table_expander extends rex_form
     protected function validate()
     {
         $fieldName = $this->elementPostValue($this->getFieldsetName(), 'name');
-        if ($fieldName == '') {
+        if ('' == $fieldName) {
             return rex_i18n::msg('global_settings_field_error_name');
         }
 
@@ -192,7 +192,7 @@ class rex_global_settings_table_expander extends rex_form
             // das meta-schema checken
             $sql = rex_sql::factory();
             $sql->setQuery('SELECT * FROM ' . $this->tableName . ' WHERE name="' . $this->addPrefix($fieldName) . '" LIMIT 1');
-            if ($sql->getRows() == 1) {
+            if (1 == $sql->getRows()) {
                 return rex_i18n::msg('global_settings_field_error_unique_name');
             }
         }
@@ -210,7 +210,7 @@ class rex_global_settings_table_expander extends rex_form
         $fieldOldName = '';
         $fieldOldPriority = 9999999999999; // dirty, damit die prio richtig l�uft...
         $fieldOldDefault = '';
-        if ($this->sql->getRows() == 1) {
+        if (1 == $this->sql->getRows()) {
             $fieldOldName = $this->sql->getValue('name');
             $fieldOldPriority = $this->sql->getValue('priority');
             $fieldOldDefault = $this->sql->getValue('default');
@@ -230,7 +230,7 @@ class rex_global_settings_table_expander extends rex_form
             $fieldDbLength = $result[0]['dblength'];
 
             // TEXT Spalten duerfen in MySQL keine Defaultwerte haben
-            if ($fieldDbType == 'text') {
+            if ('text' == $fieldDbType) {
                 $fieldDefault = null;
             }
 
@@ -254,8 +254,7 @@ class rex_global_settings_table_expander extends rex_form
                         $upd->setValue($fieldName, $fieldDefault);
                         $upd->update();
                         return true;
-                    }
-                    catch (rex_sql_exception $e) {
+                    } catch (rex_sql_exception $e) {
                         return false;
                     }
                 }
@@ -286,7 +285,7 @@ class rex_global_settings_table_expander extends rex_form
             $this->tableName,
             'priority',
             'name LIKE "' . $metaPrefix . '%"',
-            'priority, updatedate desc'
+            'priority, updatedate desc',
         );
     }
 }

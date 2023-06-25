@@ -1,4 +1,5 @@
 <?php
+
 // Parameter
 $Basedir = __DIR__;
 
@@ -18,11 +19,11 @@ switch ($subpage) {
         break;
 }
 
-if ($subpage == 'fields') {
+if ('fields' == $subpage) {
     $metaTable = rex_global_settings_meta_table($prefix);
     require $Basedir . '/field.php';
-} elseif ($subpage == 'help') {
+} elseif ('help' == $subpage) {
     require $Basedir . '/help.' . rex_be_controller::getCurrentPagePart(3) . '.php';
-} elseif ($subpage == 'settings') {
+} elseif ('settings' == $subpage) {
     require $Basedir . '/settings.php';
 }

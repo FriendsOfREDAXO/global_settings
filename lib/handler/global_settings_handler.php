@@ -2,7 +2,7 @@
 
 class rex_global_settings_global_settings_handler extends rex_global_settings_handler
 {
-    const PREFIX = 'glob_';
+    public const PREFIX = 'glob_';
 
     protected function handleSave(array $params, rex_sql $sqlFields)
     {
@@ -16,7 +16,7 @@ class rex_global_settings_global_settings_handler extends rex_global_settings_ha
         // $article->setDebug();
         $article->setTable(rex::getTablePrefix() . 'global_settings');
         $article->setWhere('clang=:clang', ['clang' => $params['clang']]);
-        //$article->setValue('name', rex_post('meta_article_name', 'string'));
+        // $article->setValue('name', rex_post('meta_article_name', 'string'));
 
         parent::fetchRequestValues($params, $article, $sqlFields);
 
@@ -25,7 +25,7 @@ class rex_global_settings_global_settings_handler extends rex_global_settings_ha
             $article->update();
         }
 
-        //rex_article_cache::deleteMeta($params['id'], $params['clang']);
+        // rex_article_cache::deleteMeta($params['id'], $params['clang']);
 
         rex_extension::registerPoint(new rex_extension_point('GLOB_META_UPDATED', '', $params));
 
@@ -42,7 +42,7 @@ class rex_global_settings_global_settings_handler extends rex_global_settings_ha
 
             // Alle Metafelder des Pfades sind erlaubt
             foreach ($OOArt->getPathAsArray() as $pathElement) {
-                if ($pathElement != '') {
+                if ('' != $pathElement) {
                     $s .= ' OR `p`.`restrictions` LIKE "%|' . $pathElement . '|%"';
                 }
             }
@@ -60,14 +60,14 @@ class rex_global_settings_global_settings_handler extends rex_global_settings_ha
 
     public function getForm(array $params)
     {
-        //$OOArt = rex_article::get($params['id'], $params['clang']);
+        // $OOArt = rex_article::get($params['id'], $params['clang']);
 
-        //$params['activeItem'] = $params['article'];
+        // $params['activeItem'] = $params['article'];
         // Hier die category_id setzen, damit beim klick auf den REX_LINK_BUTTON der Medienpool in der aktuellen Kategorie startet
-        //$params['activeItem']->setValue('category_id', $OOArt->getCategoryId());
+        // $params['activeItem']->setValue('category_id', $OOArt->getCategoryId());
 
         $sql = rex_sql::factory();
-        //$sql->setDebug();
+        // $sql->setDebug();
         $sql->setTable(rex::getTablePrefix() . 'global_settings');
         $sql->setWhere('clang=:clang', ['clang' => $params['clang']]);
         $sql->select('*');

@@ -60,7 +60,7 @@ function rex_global_settings_add_field_type($label, $dbtype, $dblength)
     $qry = 'SELECT * FROM ' . rex::getTablePrefix() . 'global_settings_type WHERE label=:label LIMIT 1';
     $sql = rex_sql::factory();
     $sql->setQuery($qry, [':label' => $label]);
-    if ($sql->getRows() != 0) {
+    if (0 != $sql->getRows()) {
         return rex_i18n::msg('global_settings_field_error_unique_type');
     }
 
@@ -89,7 +89,7 @@ function rex_global_settings_delete_field_type($field_type_id)
     $sql->setWhere(['id' => $field_type_id]);
 
     $sql->delete();
-    return $sql->getRows() == 1;
+    return 1 == $sql->getRows();
 }
 
 /**
@@ -110,7 +110,7 @@ function rex_global_settings_add_field($title, $name, $priority, $attributes, $t
     $sql = rex_sql::factory();
     $typeInfos = $sql->getArray($qry);
 
-    if ($sql->getRows() != 1) {
+    if (1 != $sql->getRows()) {
         return rex_i18n::msg('global_settings_field_error_invalid_type');
     }
 
@@ -127,7 +127,7 @@ function rex_global_settings_add_field($title, $name, $priority, $attributes, $t
     $qry = 'SELECT * FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE name=:name LIMIT 1';
     $sql = rex_sql::factory();
     $sql->setQuery($qry, [':name' => $name]);
-    if ($sql->getRows() != 0) {
+    if (0 != $sql->getRows()) {
         return rex_i18n::msg('global_settings_field_error_unique_name');
     }
 
@@ -172,7 +172,7 @@ function rex_global_settings_delete_field($fieldIdOrName)
     $sql = rex_sql::factory();
     $sql->setQuery($fieldQry, [':idOrName' => $fieldIdOrName]);
 
-    if ($sql->getRows() != 1) {
+    if (1 != $sql->getRows()) {
         return $invalidField;
     }
 
@@ -229,8 +229,6 @@ function rex_global_settings_meta_table($prefix)
 
 /**
  * Bindet ggf extensions ein.
- *
- * @param rex_extension_point $ep
  */
 function rex_global_settings_extensions_handler(rex_extension_point $ep)
 {
@@ -239,7 +237,7 @@ function rex_global_settings_extensions_handler(rex_extension_point $ep)
     $mypage = 'global_settings';
 
     // additional javascripts
-    if ($mainpage == 'global_settings') {
+    if ('global_settings' == $mainpage) {
         rex_view::addJsFile(rex_url::addonAssets($mypage, 'js/spectrum.js'));
         rex_view::addJsFile(rex_url::addonAssets($mypage, 'js/global_settings.js'));
 

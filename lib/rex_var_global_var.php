@@ -18,7 +18,7 @@ class rex_var_global_var extends rex_var
             return false;
         }
 
-        if ($this->getArg('empty') == '1') {
+        if ('1' == $this->getArg('empty')) {
             $method = 'getDefaultValue';
         } else {
             $method = 'getString';

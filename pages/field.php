@@ -1,24 +1,21 @@
 <?php
 
-rex_extension::register('REX_FORM_SAVED', function (rex_extension_point $ep)
-{
+rex_extension::register('REX_FORM_SAVED', static function (rex_extension_point $ep) {
     rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
 
     return true;
 });
 
-rex_extension::register('REX_FORM_DELETED', function (rex_extension_point $ep)
-{
+rex_extension::register('REX_FORM_DELETED', static function (rex_extension_point $ep) {
     rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
 
     return true;
 });
-
 
 $title = '';
 $content = '';
 
-//------------------------------> Parameter
+// ------------------------------> Parameter
 if (empty($prefix)) {
     throw new rex_exception('Fehler: Prefix nicht definiert!');
 }
@@ -30,10 +27,10 @@ if (empty($metaTable)) {
 $Basedir = __DIR__;
 $field_id = rex_request('field_id', 'int');
 
-//------------------------------> Feld loeschen
-if ($func == 'delete') {
+// ------------------------------> Feld loeschen
+if ('delete' == $func) {
     $field_id = rex_request('field_id', 'int', 0);
-    if ($field_id != 0) {
+    if (0 != $field_id) {
         if (rex_global_settings_delete_field($field_id)) {
             rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
 
@@ -45,8 +42,8 @@ if ($func == 'delete') {
     $func = '';
 }
 
-//------------------------------> Eintragsliste
-if ($func == '') {
+// ------------------------------> Eintragsliste
+if ('' == $func) {
     echo rex_api_function::getMessage();
 
     $title = rex_i18n::msg('global_settings_field_list_caption');
@@ -75,7 +72,7 @@ if ($func == '') {
     $list->setColumnLayout('title', ['<th>###VALUE###</th>', '<td>###VALUE###</td>']);
 
     $list->addColumn('output', '');
-    $list->setColumnLayout('output', ['<th>' . rex_i18n::msg('global_settings_field_label_output') . '</th>', '<td><code>&lt;?= rex_global_settings::getValue(\'' . '###name###' . '\'); ?&gt;</code></td>']);
+    $list->setColumnLayout('output', ['<th>' . rex_i18n::msg('global_settings_field_label_output') . '</th>', '<td><code>&lt;?= rex_global_settings::getValue(\'###name###\'); ?&gt;</code></td>']);
 
     $list->addColumn(rex_i18n::msg('global_settings_field_label_functions'), '<i class="rex-icon rex-icon-edit"></i> ' . rex_i18n::msg('edit'));
     $list->setColumnLayout(rex_i18n::msg('global_settings_field_label_functions'), ['<th class="rex-table-action" colspan="2">###VALUE###</th>', '<td class="rex-table-action">###VALUE###</td>']);
@@ -99,19 +96,19 @@ if ($func == '') {
         $defaultFields = sprintf(
             '<div class="btn-group btn-group-xs"><a href="%s" class="btn btn-default">%s</a></div>',
             rex_url::currentBackendPage(['rex-api-call' => 'global_settings_default_fields_create', 'type' => $subpage]),
-            rex_i18n::msg('global_settings_default_fields_create')
+            rex_i18n::msg('global_settings_default_fields_create'),
         );
         $fragment->setVar('options', $defaultFields, false);
     }
 
     $fragment->setVar('content', $content, false);
     $content = $fragment->parse('core/page/section.php');
-} //------------------------------> Formular
-elseif ($func == 'edit' || $func == 'add') {
+} // ------------------------------> Formular
+elseif ('edit' == $func || 'add' == $func) {
     $title = rex_i18n::msg('global_settings_field_fieldset');
     $form = new rex_global_settings_table_expander($prefix, $metaTable, rex::getTablePrefix() . 'global_settings_field', 'id=' . $field_id);
 
-    if ($func == 'edit') {
+    if ('edit' == $func) {
         $form->addParam('field_id', $field_id);
     }
 

@@ -2,13 +2,12 @@
 
 class rex_global_settings
 {
+    public const FIELD_PREFIX = 'glob_';
+    public const CACHE_FILENAME = 'cache.php';
     protected static $globalValues = [];
     protected static $curClangId;
     protected static $defaultClang;
     protected static $cacheFile;
-
-    const FIELD_PREFIX = 'glob_';
-    const CACHE_FILENAME = 'cache.php';
 
     public static function init()
     {
@@ -18,7 +17,7 @@ class rex_global_settings
 
         if (file_exists(self::$cacheFile)) {
             // retrieve from cache
-            self::$globalValues = include(self::$cacheFile);
+            self::$globalValues = include self::$cacheFile;
         } else {
             // retrieve from db
             $sql = rex_sql::factory();
@@ -26,7 +25,7 @@ class rex_global_settings
 
             if (is_array($result)) {
                 // build globalValues array based on clang then key/value
-                for ($i = 0; $i < count($result); $i++) {
+                for ($i = 0; $i < count($result); ++$i) {
                     $clangId = $result[$i]['clang'];
                     unset($result[$i]['clang']);
 
@@ -66,7 +65,7 @@ class rex_global_settings
 
     public static function getValue($field, $clangId = null, $allowEmpty = true)
     {
-        if ($clangId == null) {
+        if (null == $clangId) {
             $clangId = self::$curClangId;
         }
 
@@ -79,9 +78,9 @@ class rex_global_settings
         return self::getEmptyFieldOutput($field, '', $allowEmpty);
     }
 
-    public static function setValue($field, $clangId = null, $value = "")
+    public static function setValue($field, $clangId = null, $value = '')
     {
-        if ($clangId == null) {
+        if (null == $clangId) {
             $clangId = self::$curClangId;
         }
 
@@ -89,11 +88,11 @@ class rex_global_settings
 
         if (isset(self::$globalValues[$clangId][$field])) {
             rex_sql::factory()->setDebug(0)->setQuery('UPDATE ' . rex::getTablePrefix() . 'global_settings SET ' . $field . ' =  :value WHERE clang = :clang', [':value' => $value, ':clang' => $clangId]);
-            rex_global_settings::deleteCache();
+            self::deleteCache();
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
     public static function getDefaultString($field, $allowEmpty = false)
@@ -108,16 +107,16 @@ class rex_global_settings
 
     protected static function getEmptyFieldOutput($field, $value, $allowEmpty)
     {
-        if (!$allowEmpty && $value == '') {
+        if (!$allowEmpty && '' == $value) {
             return '{{ ' . self::getStrippedField($field) . ' }}';
-        } else {
-            return $value;
         }
+        return $value;
+
     }
 
     public static function getStrippedField($field)
     {
-        if (strpos($field, self::FIELD_PREFIX) === 0) {
+        if (str_starts_with($field, self::FIELD_PREFIX)) {
             $field = substr($field, strlen(self::FIELD_PREFIX));
         }
 
@@ -132,4 +131,3 @@ class rex_global_settings
         return $result[0];
     }
 }
-

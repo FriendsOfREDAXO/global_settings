@@ -40,10 +40,10 @@ class rex_global_settings_input_time extends rex_global_settings_input
 
     public function setAttribute($name, $value)
     {
-        if ($name == 'name') {
+        if ('name' == $name) {
             $this->hourSelect->setName($value . '[hour]');
             $this->minuteSelect->setName($value . '[minute]');
-        } elseif ($name == 'id') {
+        } elseif ('id' == $name) {
             $this->hourSelect->setId($value . '_hour');
             $this->minuteSelect->setId($value . '_minute');
         } else {
