@@ -334,13 +334,16 @@ abstract class rex_global_settings_handler
                     $rexInput->setValue($inputValue);
                     $field = $rexInput->getHtml();
 
-                    $checked = $active ? ' checked="checked"' : '';
-                    $field .= '<input class="rex-global-settings-checkbox" type="checkbox" name="' . $name . '[active]" value="1"' . $checked . ' />';
-
                     $e = [];
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
+                    $e['class'] = 'global-settings-date';
+
+                    if ($typeLabel === 'datetime') {
+                        $e['class'] .= ' global-settings-datetime';
+                    }
+
                     $fragment = new rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
@@ -701,25 +704,13 @@ abstract class rex_global_settings_handler
 
         // handle date types with timestamps
         if (isset($postValue['year']) && isset($postValue['month']) && isset($postValue['day']) && isset($postValue['hour']) && isset($postValue['minute'])) {
-            if (isset($postValue['active'])) {
-                $saveValue = mktime((int) $postValue['hour'], (int) $postValue['minute'], 0, (int) $postValue['month'], (int) $postValue['day'], (int) $postValue['year']);
-            } else {
-                $saveValue = 0;
-            }
+            $saveValue = mktime((int) $postValue['hour'], (int) $postValue['minute'], 0, (int) $postValue['month'], (int) $postValue['day'], (int) $postValue['year']);
         } // handle date types without timestamps
         elseif (isset($postValue['year']) && isset($postValue['month']) && isset($postValue['day'])) {
-            if (isset($postValue['active'])) {
-                $saveValue = mktime(0, 0, 0, (int) $postValue['month'], (int) $postValue['day'], (int) $postValue['year']);
-            } else {
-                $saveValue = 0;
-            }
+            $saveValue = mktime(0, 0, 0, (int) $postValue['month'], (int) $postValue['day'], (int) $postValue['year']);
         } // handle time types
         elseif (isset($postValue['hour']) && isset($postValue['minute'])) {
-            if (isset($postValue['active'])) {
-                $saveValue = mktime((int) $postValue['hour'], (int) $postValue['minute'], 0, 0, 0, 0);
-            } else {
-                $saveValue = 0;
-            }
+            $saveValue = mktime((int) $postValue['hour'], (int) $postValue['minute'], 0, 0, 0, 0);
         } else {
             if (count($postValue) > 1) {
                 // Mehrwertige Felder

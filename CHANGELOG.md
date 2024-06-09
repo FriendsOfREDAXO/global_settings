@@ -1,5 +1,8 @@
 # Globale Einstellungen - Changelog
 
+## Version 2.8.6
+- Datumsfelder werden nun nebeneinander angezeigt, die Checkbox um das Datum zu aktivieren bzw. deaktivieren wurde entfernt. Das Datum wird nun immer gespeichert.
+
 ## Version 2.8.0
 - update: Textfelder werden jetzt als "mediumtext" angelegt
 - update: Kopiervorlage - Ausgaben werden direkt in der Feldübersicht anzeigen

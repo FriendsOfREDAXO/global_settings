@@ -40,6 +40,25 @@
     border-color: #c1c9d4;
 }
 
+dl.rex-form-group.global-settings-datetime dd {
+    display: grid;
+    grid-template-columns: 2fr auto 1fr;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+dl.rex-form-group.global-settings-date dd .global-settings-date-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 0.5rem;
+}
+
+dl.rex-form-group.global-settings-date dd .global-settings-time-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
 body.rex-theme-dark .global-settings.nav-tabs {
     border-bottom: 1px solid #1a3332;
 }

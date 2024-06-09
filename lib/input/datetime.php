@@ -65,6 +65,9 @@ class rex_global_settings_input_datetime extends rex_global_settings_input
 
     public function getHtml()
     {
-        return $this->dateInput->getHtml() . '<span class="rex-form-select-separator">-</span>' . $this->timeInput->getHTML();
+        $html = '<div class="global-settings-date-wrapper">' . $this->dateInput->getHtml() . '</div>';
+        $html .= '<span class="rex-form-select-separator">-</span>';
+        $html .= '<div class="global-settings-time-wrapper">' . $this->timeInput->getHtml() . '</div>';
+        return $html;
     }
 }

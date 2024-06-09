@@ -81,8 +81,21 @@ class rex_global_settings_input_date extends rex_global_settings_input
 
     public function getHtml()
     {
-        return $this->daySelect->get() .
-            $this->monthSelect->get() .
-            $this->yearSelect->get();
+        $name = $this->getAttribute('name');
+        $html = '';
+
+        if ($name === 'glob_datetime') {
+            $html .= $this->daySelect->get();
+            $html .= $this->monthSelect->get();
+            $html .= $this->yearSelect->get();
+        } else {
+            $html .= '<div class="global-settings-date-wrapper">';
+            $html .= $this->daySelect->get();
+            $html .= $this->monthSelect->get();
+            $html .= $this->yearSelect->get();
+            $html .= '</div>';
+        }
+
+        return $html;
     }
 }
