@@ -6,7 +6,7 @@ class rex_global_settings_input_rgbacolorpicker extends rex_global_settings_inpu
     {
         parent::__construct();
         $this->setAttribute('class', 'form-control rex-global-settings-rgba-color-picker');
-        $this->setAttribute('data-preferred-format', 'rgba');
+        $this->setAttribute('data-preferred-format', 'rgb');
         $this->setAttribute('data-show-alpha', 'true');
         $this->setAttribute('type', 'text');
     }
