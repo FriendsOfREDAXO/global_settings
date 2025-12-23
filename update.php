@@ -34,3 +34,10 @@ if (rex_string::versionCompare($addon->getVersion(), '2.7.1', '<=')) {
         }
     }
 }
+
+// add rgbacolorpicker field type
+$sql = rex_sql::factory();
+$sql->setQuery('INSERT INTO ' . rex::getTable('global_settings_type') . ' (id, label, dbtype, dblength) 
+    VALUES (16, "rgbacolorpicker", "text", 0) 
+    ON DUPLICATE KEY UPDATE label = VALUES(label), dbtype = VALUES(dbtype), dblength = VALUES(dblength)');
+

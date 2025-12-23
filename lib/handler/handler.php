@@ -108,6 +108,7 @@ abstract class rex_global_settings_handler
                     $field = $fragment->parse('core/form/form.php');
 
                     break;
+                case 'rgbacolorpicker':
                 case 'colorpicker':
                     $tag_attr = ' class="form-control"';
 

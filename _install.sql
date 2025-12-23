@@ -21,7 +21,8 @@ INSERT INTO %TABLE_PREFIX%global_settings_type VALUES
     (8,  'REX_LINK_WIDGET', 'varchar', 255),
     (9,  'REX_LINKLIST_WIDGET', 'text', 0),
     (14, 'tab', 'text', 0),
-    (15, 'colorpicker', 'text', 0)
+    (15, 'colorpicker', 'text', 0),
+    (16, 'rgbacolorpicker', 'text', 0)
 ON DUPLICATE KEY UPDATE `label` = VALUES(`label`), `dbtype` = VALUES(`dbtype`), `dblength` = VALUES(`dblength`);
 
 CREATE TABLE IF NOT EXISTS `%TABLE_PREFIX%global_settings` (

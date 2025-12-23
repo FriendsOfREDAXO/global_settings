@@ -20,6 +20,7 @@ if (!defined('REX_GLOBAL_SETTINGS_FIELD_TEXT')) {
     define('REX_GLOBAL_SETTINGS_FIELD_COUNT', 13);
     define('REX_GLOBAL_SETTINGS_FIELD_TAB', 14);
     define('REX_GLOBAL_SETTINGS_FIELD_COLORPICKER', 15);
+    define('REX_GLOBAL_SETTINGS_FIELD_RGBACOLORPICKER', 16);
 }
 
 $this->setProperty('prefixes', ['glob_']);
