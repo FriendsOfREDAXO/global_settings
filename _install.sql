@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `%TABLE_PREFIX%global_settings_type` (
     `dbtype` varchar(255) NOT NULL,
     `dblength` int(11) NOT NULL,
     PRIMARY KEY  (`id`)
-    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
 
 INSERT INTO %TABLE_PREFIX%global_settings_type VALUES
     (1,  'text', 'text', 0),
@@ -26,6 +26,7 @@ INSERT INTO %TABLE_PREFIX%global_settings_type VALUES
 ON DUPLICATE KEY UPDATE `label` = VALUES(`label`), `dbtype` = VALUES(`dbtype`), `dblength` = VALUES(`dblength`);
 
 CREATE TABLE IF NOT EXISTS `%TABLE_PREFIX%global_settings` (
+    `domain_id` int(10) unsigned NOT NULL DEFAULT 1,
     `clang` int(10) unsigned NOT NULL,
-    PRIMARY KEY  (`clang`)
-    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+    PRIMARY KEY (`domain_id`, `clang`)
+    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;

@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_colorpicker extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Colorpicker extends Input
 {
     public function __construct()
     {
@@ -11,7 +13,7 @@ class rex_global_settings_input_colorpicker extends rex_global_settings_input
 
     public function getHtml()
     {
-        $value = htmlspecialchars($this->value);
+        $value = \rex_escape((string) $this->value);
         return '<input' . $this->getAttributeString() . ' value="' . $value . '" />';
     }
 }

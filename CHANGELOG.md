@@ -1,5 +1,11 @@
 # Globale Einstellungen - Changelog
 
+## Version 3.0.0-beta1
+- **Breaking Change:** Umstellung auf PSR-4 Namespace `FriendsOfRedaxo\GlobalSettings`.
+- **Breaking Change:** Die alte Klasse `rex_global_settings` wurde entfernt. Alle Aufrufe laufen nun über `\FriendsOfRedaxo\GlobalSettings\GlobalSettings`.
+- **Feature:** Vollständige YRewrite Domain-Unterstützung. Globale Einstellungen lassen sich nun gezielt pro YRewrite-Domain verwalten. Zudem werden bei der Eingabe automatisch nur noch die Sprachen angeboten, die für die jeweilige Domain aktiviert sind.
+- **Bugfix:** RGBA-Colorpicker verarbeitet den Alpha-Kanal nun korrekt.
+
 ## Version 2.8.7 
 - RGBA-Colorpicker mit Alpha-Kanal-Unterstützung als Direktwahl hinzugefügt
 

@@ -22,13 +22,22 @@ rex_sql_table::get(rex::getTable('global_settings_field'))
 
 rex_sql_util::importDump($this->getPath('_install.sql'));
 
+// Update existing global_settings table schema if coming from before YRewrite update
+$settingsTable = rex_sql_table::get(rex::getTable('global_settings'));
+if (!$settingsTable->hasColumn('domain_id')) {
+    $settingsTable
+        ->ensureColumn(new rex_sql_column('domain_id', 'int(10) unsigned', false, '1'))
+        ->removeIndex('PRIMARY')
+        ->setPrimaryKey(['domain_id', 'clang'])
+        ->alter();
+}
+
 $tablePrefixes = ['global_settings' => ['glob_']];
 $columns = ['global_settings' => []];
 foreach ($tablePrefixes as $table => $prefixes) {
     foreach (rex_sql::showColumns(rex::getTable($table)) as $column) {
         $column = $column['name'];
-        $prefix = substr($column, 0, 4);
-        if (in_array(substr($column, 0, 4), $prefixes)) {
+        if (in_array(substr($column, 0, 5), $prefixes)) {
             $columns[$table][$column] = true;
         }
     }
@@ -36,9 +45,8 @@ foreach ($tablePrefixes as $table => $prefixes) {
 
 $sql = rex_sql::factory();
 $sql->setQuery('SELECT p.name, p.default, t.dbtype, t.dblength FROM ' . rex::getTable('global_settings_field') . ' p, ' . rex::getTable('global_settings_type') . ' t WHERE p.type_id = t.id');
-$rows = $sql->getRows();
 $managers = [
-    'global_settings' => new rex_global_settings_table_manager(rex::getTable('global_settings')),
+    'global_settings' => new \FriendsOfRedaxo\GlobalSettings\TableManager(rex::getTable('global_settings')),
 ];
 for ($i = 0; $i < $sql->getRows(); ++$i) {
     $column = $sql->getValue('name');

@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_datetime extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Datetime extends Input
 {
     private $dateInput;
     private $timeInput;
@@ -9,8 +11,8 @@ class rex_global_settings_input_datetime extends rex_global_settings_input
     {
         parent::__construct();
 
-        $this->dateInput = rex_global_settings_input::factory('date');
-        $this->timeInput = rex_global_settings_input::factory('time');
+        $this->dateInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory('date');
+        $this->timeInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory('time');
     }
 
     public function setValue($value)

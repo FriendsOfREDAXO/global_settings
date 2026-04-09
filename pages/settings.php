@@ -1,8 +1,18 @@
 <?php
 
 $content = '';
+$domainId = rex_request('domain_id', 'int', rex_session('global_settings_domain_id', 'int', null));
+
+if ($domainId === null && rex_addon::get('yrewrite')->isAvailable()) {
+    $domainId = rex_yrewrite::getDefaultDomain()->getId();
+} else if ($domainId === null) {
+    $domainId = 1;
+}
+
+rex_set_session('global_settings_domain_id', $domainId);
 
 if (rex_post('savemeta', 'boolean')) {
+// ...
     rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
 
     $content = rex_view::success(rex_i18n::msg('global_settings_metadata_saved'));
@@ -11,18 +21,33 @@ if (rex_post('savemeta', 'boolean')) {
 $panel = '<input type="hidden" name="save" value="1" />';
 
 $clangId = filter_var(rex_be_controller::getCurrentPagePart(3), FILTER_SANITIZE_NUMBER_INT);
-
-if ($clangId < 1) {
-    $clangId = 1;
+if ($clangId < 1 || !rex_clang::exists($clangId)) {
+    $clangId = rex_clang::getStartId();
 }
 
-if (rex_clang::exists($clangId)) {
-    rex_clang::setCurrentId($clangId);
+$oldClangId = $clangId;
+if (rex_addon::get('yrewrite')->isAvailable() && $domainId) {
+    if ($domain = rex_yrewrite::getDomainById($domainId)) {
+        $allowedClangs = $domain->getClangs();
+        if (!empty($allowedClangs) && !in_array($clangId, $allowedClangs)) {
+            $clangId = reset($allowedClangs);
+        }
+    }
 }
 
-$global_settingsHandler = new rex_global_settings_global_settings_handler();
+if ($oldClangId !== $clangId && rex_request('domain_id', 'int')) {
+    // redirect to apply new valid clang in url
+    rex_response::sendRedirect(rex_url::backendPage('global_settings/settings/clang'.$clangId, ['domain_id' => $domainId], false));
+}
+
+rex_clang::setCurrentId($clangId);
+
+$panel .= '<input type="hidden" name="domain_id" value="' . $domainId . '" />';
+
+$global_settingsHandler = new \FriendsOfRedaxo\GlobalSettings\Handler\GlobalSettingsHandler();
 $form = $global_settingsHandler->getForm([
     'clang' => $clangId,
+    'domain_id' => $domainId,
 ]);
 
 $panel .= $form;

@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_table_expander extends rex_form
+namespace FriendsOfRedaxo\GlobalSettings;
+
+class TableExpander extends \rex_form
 {
     private $metaPrefix;
     private $tableManager;
@@ -8,39 +10,39 @@ class rex_global_settings_table_expander extends rex_form
     public function __construct($metaPrefix, $metaTable, $tableName, $whereCondition, $method = 'post', $debug = false)
     {
         $this->metaPrefix = $metaPrefix;
-        $this->tableManager = new rex_global_settings_table_manager($metaTable);
+        $this->tableManager = new \rex_global_settings_table_manager($metaTable);
 
-        parent::__construct($tableName, rex_i18n::msg('global_settings_field_fieldset'), $whereCondition, $method, $debug);
+        parent::__construct($tableName, \rex_i18n::msg('global_settings_field_fieldset'), $whereCondition, $method, $debug);
     }
 
     public function init()
     {
         // ----- EXTENSION POINT
         // IDs aller Feldtypen bei denen das Parameter-Feld eingeblendet werden soll
-        $typeFields = rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_TYPE_FIELDS', [REX_GLOBAL_SETTINGS_FIELD_SELECT, REX_GLOBAL_SETTINGS_FIELD_RADIO, REX_GLOBAL_SETTINGS_FIELD_CHECKBOX, REX_GLOBAL_SETTINGS_FIELD_REX_MEDIA_WIDGET, REX_GLOBAL_SETTINGS_FIELD_REX_MEDIALIST_WIDGET, REX_GLOBAL_SETTINGS_FIELD_REX_LINK_WIDGET, REX_GLOBAL_SETTINGS_FIELD_REX_LINKLIST_WIDGET]));
+        $typeFields = \rex_extension::registerPoint(new \rex_extension_point('GLOBAL_SETTINGS_TYPE_FIELDS', [REX_GLOBAL_SETTINGS_FIELD_SELECT, REX_GLOBAL_SETTINGS_FIELD_RADIO, REX_GLOBAL_SETTINGS_FIELD_CHECKBOX, REX_GLOBAL_SETTINGS_FIELD_REX_MEDIA_WIDGET, REX_GLOBAL_SETTINGS_FIELD_REX_MEDIALIST_WIDGET, REX_GLOBAL_SETTINGS_FIELD_REX_LINK_WIDGET, REX_GLOBAL_SETTINGS_FIELD_REX_LINKLIST_WIDGET]));
 
         $field = $this->addTextField('name');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_name'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_name'));
         $field->setAttribute('id', 'global-settings-name-field');
 
         $field = $this->addSelectField('priority');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_priority'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_priority'));
         $select = $field->getSelect();
         $select->setSize(1);
-        $select->addOption(rex_i18n::msg('global_settings_field_first_priority'), 1);
+        $select->addOption(\rex_i18n::msg('global_settings_field_first_priority'), 1);
         // Im Edit Mode das Feld selbst nicht als Position einf�gen
         $qry = 'SELECT name,priority FROM ' . $this->tableName . ' WHERE `name` LIKE "' . $this->metaPrefix . '%"';
         if ($this->isEditMode()) {
             $qry .= ' AND id != ' . $this->getParam('field_id');
         }
         $qry .= ' ORDER BY priority';
-        $sql = rex_sql::factory();
+        $sql = \rex_sql::factory();
         $sql->setQuery($qry);
         $value = 1;
         for ($i = 0; $i < $sql->getRows(); ++$i) {
             $value = $sql->getValue('priority') + 1;
             $select->addOption(
-                rex_i18n::rawMsg('global_settings_field_after_priority', rex_global_settings::getStrippedField($sql->getValue('name'))),
+                \rex_i18n::rawMsg('global_settings_field_after_priority', \rex_global_settings::getStrippedField($sql->getValue('name'))),
                 $value,
             );
             $sql->next();
@@ -50,14 +52,14 @@ class rex_global_settings_table_expander extends rex_form
         }
 
         $field = $this->addTextField('title');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_title'));
-        $field->setNotice(rex_i18n::msg('global_settings_field_notice_title'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_title'));
+        $field->setNotice(\rex_i18n::msg('global_settings_field_notice_title'));
 
         $field = $this->addTextField('notice');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_note'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_note'));
 
-        $gq = rex_sql::factory();
-        $gq->setQuery('SELECT dbtype,id FROM ' . rex::getTablePrefix() . 'global_settings_type');
+        $gq = \rex_sql::factory();
+        $gq->setQuery('SELECT dbtype,id FROM ' . \rex::getTablePrefix() . 'global_settings_type');
         $textFields = [];
         foreach ($gq->getArray() as $f) {
             if ('text' == $f['dbtype']) {
@@ -66,18 +68,18 @@ class rex_global_settings_table_expander extends rex_form
         }
 
         $field = $this->addSelectField('type_id');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_type'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_type'));
         $field->setAttribute('onchange', 'gs_checkConditionalFields(this, new Array(' . implode(',', $typeFields) . '), new Array(' . implode(',', $textFields) . '));');
         $select = $field->getSelect();
         $select->setSize(1);
 
-        $qry = 'SELECT label,id FROM ' . rex::getTablePrefix() . 'global_settings_type';
+        $qry = 'SELECT label,id FROM ' . \rex::getTablePrefix() . 'global_settings_type';
         $select->addSqlOptions($qry);
 
         $notices = '';
         for ($i = 1; $i < REX_GLOBAL_SETTINGS_FIELD_COUNT; ++$i) {
-            if (rex_i18n::hasMsg('global_settings_field_params_notice_' . $i)) {
-                $notices .= '<span id="global-settings-field-params-notice-' . $i . '" style="display:none">' . rex_i18n::msg('global_settings_field_params_notice_' . $i) . '</span>' . "\n";
+            if (\rex_i18n::hasMsg('global_settings_field_params_notice_' . $i)) {
+                $notices .= '<span id="global-settings-field-params-notice-' . $i . '" style="display:none">' . \rex_i18n::msg('global_settings_field_params_notice_' . $i) . '</span>' . "\n";
             }
         }
         $notices .= '
@@ -87,27 +89,27 @@ class rex_global_settings_table_expander extends rex_form
         </script>';
 
         $field = $this->addTextAreaField('params');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_params'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_params'));
         $field->setNotice($notices);
 
         $field = $this->addTextAreaField('attributes');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_attributes'));
-        $notice = rex_i18n::msg('global_settings_field_attributes_notice') . "\n";
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_attributes'));
+        $notice = \rex_i18n::msg('global_settings_field_attributes_notice') . "\n";
         $field->setNotice($notice);
 
         $field = $this->addTextAreaField('callback');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_callback'));
-        $notice = rex_i18n::msg('global_settings_field_label_notice') . "\n";
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_callback'));
+        $notice = \rex_i18n::msg('global_settings_field_label_notice') . "\n";
         $field->setNotice($notice);
 
         $field = $this->addTextField('default');
-        $field->setLabel(rex_i18n::msg('global_settings_field_label_default'));
+        $field->setLabel(\rex_i18n::msg('global_settings_field_label_default'));
 
         /*if ('clang_' !== $this->metaPrefix) {
             $attributes = [];
-            $attributes['internal::fieldClass'] = 'rex_form_restrictons_element';
+            $attributes['internal::fieldClass'] = '\rex_form_restrictons_element';
             $field = $this->addField('', 'restrictions', null, $attributes);
-            $field->setLabel(rex_i18n::msg('global_settings_field_label_restrictions'));
+            $field->setLabel(\rex_i18n::msg('global_settings_field_label_restrictions'));
             $field->setAttribute('size', 10);
             $field->setAttribute('class', 'form-control');
         }*/
@@ -118,7 +120,7 @@ class rex_global_settings_table_expander extends rex_form
     protected function delete()
     {
         // Infos zuerst selektieren, da nach parent::delete() nicht mehr in der db
-        $sql = rex_sql::factory();
+        $sql = \rex_sql::factory();
         $sql->setDebug($this->debug);
         $sql->setTable($this->tableName);
         $sql->setWhere($this->whereCondition);
@@ -134,7 +136,7 @@ class rex_global_settings_table_expander extends rex_form
         return $result;
     }
 
-    protected function preSave($fieldsetName, $fieldName, $fieldValue, rex_sql $saveSql)
+    protected function preSave($fieldsetName, $fieldName, $fieldValue, \rex_sql $saveSql)
     {
         if ($fieldsetName == $this->getFieldsetName() && 'name' == $fieldName) {
             // Den Namen mit Prefix speichern
@@ -175,25 +177,25 @@ class rex_global_settings_table_expander extends rex_form
     {
         $fieldName = $this->elementPostValue($this->getFieldsetName(), 'name');
         if ('' == $fieldName) {
-            return rex_i18n::msg('global_settings_field_error_name');
+            return \rex_i18n::msg('global_settings_field_error_name');
         }
 
         if (preg_match('/[^a-zA-Z0-9\_]/', $fieldName)) {
-            return rex_i18n::msg('global_settings_field_error_chars_name');
+            return \rex_i18n::msg('global_settings_field_error_chars_name');
         }
 
         // Pruefen ob schon eine Spalte mit dem Namen existiert (nur beim add noetig)
         if (!$this->isEditMode()) {
             // die tabelle selbst checken
             if ($this->tableManager->hasColumn($this->addPrefix($fieldName))) {
-                return rex_i18n::msg('global_settings_field_error_unique_name');
+                return \rex_i18n::msg('global_settings_field_error_unique_name');
             }
 
             // das meta-schema checken
-            $sql = rex_sql::factory();
+            $sql = \rex_sql::factory();
             $sql->setQuery('SELECT * FROM ' . $this->tableName . ' WHERE name="' . $this->addPrefix($fieldName) . '" LIMIT 1');
             if (1 == $sql->getRows()) {
-                return rex_i18n::msg('global_settings_field_error_unique_name');
+                return \rex_i18n::msg('global_settings_field_error_unique_name');
             }
         }
 
@@ -223,9 +225,9 @@ class rex_global_settings_table_expander extends rex_form
             $fieldType = $this->elementPostValue($this->getFieldsetName(), 'type_id');
             $fieldDefault = $this->elementPostValue($this->getFieldsetName(), 'default');
 
-            $sql = rex_sql::factory();
+            $sql = \rex_sql::factory();
             $sql->setDebug($this->debug);
-            $result = $sql->getArray('SELECT `dbtype`, `dblength` FROM `' . rex::getTablePrefix() . 'global_settings_type` WHERE id=' . $fieldType);
+            $result = $sql->getArray('SELECT `dbtype`, `dblength` FROM `' . \rex::getTablePrefix() . 'global_settings_type` WHERE id=' . $fieldType);
             $fieldDbType = $result[0]['dbtype'];
             $fieldDbLength = $result[0]['dblength'];
 
@@ -241,20 +243,20 @@ class rex_global_settings_table_expander extends rex_form
                 // Spalte in der Tabelle anlegen
                 $tmRes = $this->tableManager->addColumn($fieldName, $fieldDbType, $fieldDbLength, $fieldDefault);
             }
-            rex_delete_cache();
+            \rex_delete_cache();
 
             if ($tmRes) {
                 // DefaultWerte setzen
                 if ($fieldDefault != $fieldOldDefault) {
                     try {
-                        $upd = rex_sql::factory();
+                        $upd = \rex_sql::factory();
                         $upd->setDebug($this->debug);
                         $upd->setTable($this->tableManager->getTableName());
                         $upd->setWhere([$fieldName => $fieldOldDefault]);
                         $upd->setValue($fieldName, $fieldDefault);
                         $upd->update();
                         return true;
-                    } catch (rex_sql_exception $e) {
+                    } catch (\rex_sql_exception $e) {
                         return false;
                     }
                 }
@@ -281,7 +283,7 @@ class rex_global_settings_table_expander extends rex_form
         // replace LIKE wildcards
         $metaPrefix = str_replace(['_', '%'], ['\_', '\%'], $this->metaPrefix);
 
-        rex_sql_util::organizePriorities(
+        \rex_sql_util::organizePriorities(
             $this->tableName,
             'priority',
             'name LIKE "' . $metaPrefix . '%"',

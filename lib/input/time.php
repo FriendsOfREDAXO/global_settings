@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_time extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Time extends Input
 {
     private $hourSelect;
     private $minuteSelect;
@@ -9,12 +11,12 @@ class rex_global_settings_input_time extends rex_global_settings_input
     {
         parent::__construct();
 
-        $this->hourSelect = new rex_select();
+        $this->hourSelect = new \rex_select();
         $this->hourSelect->addOptions(range(0, 23), true);
         $this->hourSelect->setSize(1);
         $this->hourSelect->setAttribute('class', 'rex-form-select-date');
 
-        $this->minuteSelect = new rex_select();
+        $this->minuteSelect = new \rex_select();
         $this->minuteSelect->addOptions(range(0, 59), true);
         $this->minuteSelect->setSize(1);
         $this->minuteSelect->setAttribute('class', 'rex-form-select-date');
@@ -28,7 +30,7 @@ class rex_global_settings_input_time extends rex_global_settings_input
 
         foreach (['hour', 'minute'] as $reqIndex) {
             if (!isset($value[$reqIndex])) {
-                throw new rex_exception('Missing index "' . $reqIndex . '" in $value!');
+                throw new \rex_exception('Missing index "' . $reqIndex . '" in $value!');
             }
         }
 

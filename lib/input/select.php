@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_select extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Select extends Input
 {
     private $select;
 
@@ -8,7 +10,7 @@ class rex_global_settings_input_select extends rex_global_settings_input
     {
         parent::__construct();
 
-        $this->select = new rex_select();
+        $this->select = new \rex_select();
         $this->setAttribute('class', 'form-control');
     }
 

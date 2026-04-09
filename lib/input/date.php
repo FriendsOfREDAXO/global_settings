@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_date extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Date extends Input
 {
     public $yearSelect;
     public $monthSelect;
@@ -10,17 +12,17 @@ class rex_global_settings_input_date extends rex_global_settings_input
     {
         parent::__construct();
 
-        $this->yearSelect = new rex_select();
+        $this->yearSelect = new \rex_select();
         $this->yearSelect->addOptions(range(2005, date('Y') + 10), true);
         $this->yearSelect->setAttribute('class', 'rex-form-select-year');
         $this->yearSelect->setSize(1);
 
-        $this->monthSelect = new rex_select();
+        $this->monthSelect = new \rex_select();
         $this->monthSelect->addOptions(range(1, 12), true);
         $this->monthSelect->setAttribute('class', 'rex-form-select-date');
         $this->monthSelect->setSize(1);
 
-        $this->daySelect = new rex_select();
+        $this->daySelect = new \rex_select();
         $this->daySelect->addOptions(range(1, 31), true);
         $this->daySelect->setAttribute('class', 'rex-form-select-date');
         $this->daySelect->setSize(1);
@@ -34,7 +36,7 @@ class rex_global_settings_input_date extends rex_global_settings_input
 
         foreach (['year', 'month', 'day'] as $reqIndex) {
             if (!isset($value[$reqIndex])) {
-                throw new rex_exception('Missing index "' . $reqIndex . '" in $value!');
+                throw new \rex_exception('Missing index "' . $reqIndex . '" in $value!');
             }
         }
 

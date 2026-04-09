@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_textarea extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Textarea extends Input
 {
     public function __construct()
     {
@@ -12,7 +14,7 @@ class rex_global_settings_input_textarea extends rex_global_settings_input
 
     public function getHtml()
     {
-        $value = htmlspecialchars($this->value);
+        $value = \rex_escape((string) $this->value);
         return '<textarea' . (string) $this->getAttributeString() . '>' . $value . '</textarea>';
     }
 }

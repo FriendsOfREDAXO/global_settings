@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_mediabutton extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Mediabutton extends Input
 {
     private $buttonId;
     private $args = [];
@@ -35,11 +37,11 @@ class rex_global_settings_input_mediabutton extends rex_global_settings_input
     public function getHtml()
     {
         $buttonId = $this->buttonId;
-        $value = htmlspecialchars($this->value);
+        $value = \rex_escape((string) $this->value);
         $name = $this->attributes['name'];
         $args = $this->args;
 
-        $field = rex_var_media::getWidget($buttonId, $name, $value, $args);
+        $field = \rex_var_media::getWidget($buttonId, $name, $value, $args);
 
         return $field;
     }

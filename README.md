@@ -29,39 +29,57 @@ Das AddOn kann Felder in Tabs gruppieren. Hier ein Beispiel für eine mögliche 
 
 ## API
 
+Ab Version 3.0.0 verwendet das AddOn PSR-4 Namespaces: `FriendsOfRedaxo\GlobalSettings`.
+Alle statischen Aufrufe erfolgen über `\FriendsOfRedaxo\GlobalSettings\GlobalSettings`.
+
 ```php
+use FriendsOfRedaxo\GlobalSettings\GlobalSettings;
+
 // Ausgabe eines Feldes der aktuellen Sprache
-echo rex_global_settings::getValue('my_field');
+echo GlobalSettings::getValue('my_field');
 
 // Ausgabe eines Feldes der Sprache mit der ID = 2
-echo rex_global_settings::getValue('my_field', 2);
+echo GlobalSettings::getValue('my_field', 2);
 
 // Ausgabe eines Feldes der Haupt-Sprache
-echo rex_global_settings::getDefaultValue('my_field');
+echo GlobalSettings::getDefaultValue('my_field');
 
 // Ausgabe eines Feldes der aktuellen Sprache, wenn leer kommt Ausgabe {{ my_field }}
-echo rex_global_settings::getString('my_field');
+echo GlobalSettings::getString('my_field');
 
 // Ausgabe eines Feldes der Sprache mit der ID = 2, wenn leer kommt Ausgabe {{ my_field }}
-echo rex_global_settings::getString('my_field', 2);
+echo GlobalSettings::getString('my_field', 2);
 
 // Ausgabe eines Feldes der Haupt-Sprache, wenn leer kommt Ausgabe {{ my_field }}
-echo rex_global_settings::getDefaultString('my_field');
+echo GlobalSettings::getDefaultString('my_field');
 
 // Ausgabe der Felddefinition als Array
-dump(rex_global_settings::getFieldDefinition('my_field'));
+dump(GlobalSettings::getFieldDefinition('my_field'));
 
 // Überschreiben eines Feldwertes der aktuellen Sprache mit dem Wert "Hallo"  
-rex_global_settings::setValue('my_field', null, "Hallo");
+GlobalSettings::setValue('my_field', null, "Hallo");
 
 // Überschreiben eines Feldwertes der Sprache mit der ID = 2 mit dem Wert "Hallo"  
-rex_global_settings::setValue('my_field', 2, "Hallo");
+GlobalSettings::setValue('my_field', 2, "Hallo");
+
+// --- YRewrite Domain-Support ---
+// Wenn YRewrite installiert ist, wird standardmäßig die aktuelle Domain herangezogen.
+// Ist YRewrite nicht installiert, gibt es keine Domain-Unterscheidung. Alle Werte gelten systemweit und werden intern unter der Tabellen-ID 1 gespeichert.
+// Man kann über den vierten Parameter gezielt eine spezifische Domain-ID abfragen (z.B. bei Multi-Domain Setups).
+
+// Ausgabe eines Feldes der aktuellen Sprache und einer spezifischen Domain (ID = 2)
+// (3. Parameter ist für "allowEmpty", standard bei getValue ist true)
+echo GlobalSettings::getValue('my_field', null, true, 2);
+
+// Ausgabe als formatierten String der aktuellen Sprache und spezifischen Domain (ID = 2)
+// (3. Parameter ist für "allowEmpty", standard bei getString ist false -> Rückgabe "{{ my_field }}")
+echo GlobalSettings::getString('my_field', null, false, 2);
 ```
 
 ## REDAXO-Variable
 
 Die REDAXO-Variable `REX_GLOBAL_VAR` kann in Modulen und Templates verwendet werden um Werte auszulesen. 
-Sie entspricht der Ausgabe von: `rex_global_settings::getString('my_field')`. 
+Sie entspricht der Ausgabe von: `\FriendsOfRedaxo\GlobalSettings\GlobalSettings::getString('my_field')`. 
 
 Verwendung: 
 

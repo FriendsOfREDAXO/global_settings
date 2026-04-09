@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_table_manager
+namespace FriendsOfRedaxo\GlobalSettings;
+
+class TableManager
 {
     private $tableName;
     private $DBID;
@@ -26,7 +28,7 @@ class rex_global_settings_table_manager
         }
 
         if (null !== $default) {
-            $qry .= ' DEFAULT \'' . str_replace("'", "\\'", $default) . '\'';
+            $qry .= ' DEFAULT \'' . str_replace("'", "\'", $default) . '\'';
         }
 
         if (true !== $nullable) {
@@ -36,7 +38,7 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        } catch (\rex_sql_exception $e) {
             return false;
         }
     }
@@ -51,7 +53,7 @@ class rex_global_settings_table_manager
         }
 
         if (null !== $default) {
-            $qry .= ' DEFAULT \'' . str_replace("'", "\\'", $default) . '\'';
+            $qry .= ' DEFAULT \'' . str_replace("'", "\'", $default) . '\'';
         }
 
         if (true !== $nullable) {
@@ -61,7 +63,7 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        } catch (\rex_sql_exception $e) {
             return false;
         }
     }
@@ -74,14 +76,14 @@ class rex_global_settings_table_manager
         try {
             $this->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        } catch (\rex_sql_exception $e) {
             return false;
         }
     }
 
     public function hasColumn($name)
     {
-        $columns = rex_sql::showColumns($this->getTableName(), $this->DBID);
+        $columns = \rex_sql::showColumns($this->getTableName(), $this->DBID);
 
         foreach ($columns as $column) {
             if ($column['name'] == $name) {
@@ -94,10 +96,10 @@ class rex_global_settings_table_manager
     protected function setQuery($qry)
     {
         try {
-            $sql = rex_sql::factory($this->DBID);
+            $sql = \rex_sql::factory($this->DBID);
             $sql->setQuery($qry);
             return true;
-        } catch (rex_sql_exception $e) {
+        } catch (\rex_sql_exception $e) {
             return false;
         }
     }

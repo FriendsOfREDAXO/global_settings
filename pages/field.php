@@ -31,7 +31,7 @@ $field_id = rex_request('field_id', 'int');
 if ('delete' == $func) {
     $field_id = rex_request('field_id', 'int', 0);
     if (0 != $field_id) {
-        if (rex_global_settings_delete_field($field_id)) {
+        if (\FriendsOfRedaxo\GlobalSettings\GlobalSettingsHelper::deleteField($field_id)) {
             rex_extension::registerPoint(new rex_extension_point('GLOBAL_SETTINGS_CHANGED'));
 
             echo rex_view::success(rex_i18n::msg('global_settings_field_successfull_deleted'));
@@ -51,7 +51,7 @@ if ('' == $func) {
     // replace LIKE wildcards
     $likePrefix = str_replace(['_', '%'], ['\_', '\%'], $prefix);
 
-    $list = rex_global_settings_list::factory('SELECT id, name, title FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE `name` LIKE "' . $likePrefix . '%" ORDER BY priority');
+    $list = \FriendsOfRedaxo\GlobalSettings\GlobalSettingsList::factory('SELECT id, name, title FROM ' . rex::getTablePrefix() . 'global_settings_field WHERE `name` LIKE "' . $likePrefix . '%" ORDER BY priority');
     $list->addTableAttribute('class', 'table-striped');
 
     $tdIcon = '<i class="rex-icon rex-icon-metainfo"></i>';
@@ -106,7 +106,7 @@ if ('' == $func) {
 } // ------------------------------> Formular
 elseif ('edit' == $func || 'add' == $func) {
     $title = rex_i18n::msg('global_settings_field_fieldset');
-    $form = new rex_global_settings_table_expander($prefix, $metaTable, rex::getTablePrefix() . 'global_settings_field', 'id=' . $field_id);
+    $form = new \FriendsOfRedaxo\GlobalSettings\TableExpander($prefix, $metaTable, rex::getTablePrefix() . 'global_settings_field', 'id=' . $field_id);
 
     if ('edit' == $func) {
         $form->addParam('field_id', $field_id);

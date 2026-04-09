@@ -1,6 +1,8 @@
 <?php
 
-abstract class rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+abstract class Input
 {
     protected $value;
     protected $attributes;
@@ -112,7 +114,7 @@ abstract class rex_global_settings_input
     abstract public function getHtml();
 
     /**
-     * Factory-Methode um rex_global_settings_input_*-Elemente anhand des Types $inputType zu erstellen.
+     * Factory-Methode um Input-Elemente anhand des Types $inputType zu erstellen.
      *
      * @param string $inputType
      *
@@ -137,7 +139,7 @@ abstract class rex_global_settings_input
             case 'medialistbutton':
             case 'linkbutton':
             case 'linklistbutton':
-                $class = 'rex_global_settings_input_' . $inputType;
+                $class = '\\FriendsOfRedaxo\\GlobalSettings\\Input\\' . ucfirst($inputType);
                 return new $class();
         }
         return null;

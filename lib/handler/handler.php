@@ -1,16 +1,18 @@
 <?php
 
-abstract class rex_global_settings_handler
+namespace FriendsOfRedaxo\GlobalSettings\Handler;
+
+abstract class Handler
 {
     /**
      * Erstellt den nötigen HTML Code um ein Formular zu erweitern.
      *
-     * @param rex_sql $sqlFields rex_sql-objekt, dass die zu verarbeitenden Felder enthält
+     * @param \rex_sql $sqlFields \rex_sql-objekt, dass die zu verarbeitenden Felder enthält
      * @param array $epParams Array of all EP parameters
      *
      * @return string
      */
-    public function renderMetaFields(rex_sql $sqlFields, array $epParams)
+    public function renderMetaFields(\rex_sql $sqlFields, array $epParams)
     {
 
         $tabs = [];
@@ -41,7 +43,7 @@ abstract class rex_global_settings_handler
             $attr = $sqlFields->getValue('attributes');
             $dblength = $sqlFields->getValue('dblength');
 
-            $attrArray = rex_string::split($attr);
+            $attrArray = \rex_string::split($attr);
             if (isset($attrArray['perm']) && 'tab' !== $typeLabel) {
                 if (!rex::getUser()->hasPerm($attrArray['perm'])) {
                     continue;
@@ -69,7 +71,7 @@ abstract class rex_global_settings_handler
             }
 
             if ('' != $title) {
-                $label = rex_i18n::translate($title);
+                $label = \rex_i18n::translate($title);
             } else {
                 $label = htmlspecialchars($name);
             }
@@ -85,7 +87,7 @@ abstract class rex_global_settings_handler
                 case 'text':
                     $tag_attr = ' class="form-control"';
 
-                    $rexInput = rex_global_settings_input::factory($typeLabel);
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory($typeLabel);
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setAttribute('id', $id);
                     $rexInput->setAttribute('name', $name);
@@ -103,7 +105,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -112,7 +114,7 @@ abstract class rex_global_settings_handler
                 case 'colorpicker':
                     $tag_attr = ' class="form-control"';
 
-                    $rexInput = rex_global_settings_input::factory($typeLabel);
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory($typeLabel);
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setAttribute('id', $id);
                     $rexInput->setAttribute('name', $name);
@@ -130,7 +132,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -148,8 +150,8 @@ abstract class rex_global_settings_handler
                     $formElements = [];
 
                     $values = [];
-                    if ('SELECT' == rex_sql::getQueryType($params)) {
-                        $sql = rex_sql::factory();
+                    if ('SELECT' == \rex_sql::getQueryType($params)) {
+                        $sql = \rex_sql::factory();
                         $value_groups = $sql->getDBArray($params, [], PDO::FETCH_NUM);
                         foreach ($value_groups as $value_group) {
                             if (isset($value_group[1])) {
@@ -167,9 +169,9 @@ abstract class rex_global_settings_handler
                                 && !str_starts_with($value_group, 'translate:')
                             ) {
                                 $temp = explode(':', $value_group, 2);
-                                $values[$temp[0]] = rex_i18n::translate($temp[1]);
+                                $values[$temp[0]] = \rex_i18n::translate($temp[1]);
                             } else {
-                                $values[$value_group] = rex_i18n::translate($value_group);
+                                $values[$value_group] = \rex_i18n::translate($value_group);
                             }
                         }
                     }
@@ -221,7 +223,7 @@ abstract class rex_global_settings_handler
                         $formElements[] = $e;
                     }
 
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', $formElements, false);
                     $fragment->setVar('inline', $inline);
 
@@ -239,7 +241,7 @@ abstract class rex_global_settings_handler
                         $e['label'] = $label;
                         $e['field'] = $field;
                         $e['note'] = $notice;
-                        $fragment = new rex_fragment();
+                        $fragment = new \rex_fragment();
                         $fragment->setVar('elements', [$e], false);
                         $field = $fragment->parse('core/form/form.php');
                     }
@@ -248,7 +250,7 @@ abstract class rex_global_settings_handler
                 case 'select':
                     $tag_attr = ' class="form-control"';
 
-                    $select = new rex_select();
+                    $select = new \rex_select();
                     $select->setStyle('class="form-control"');
                     $select->setName($name);
                     $select->setId($id);
@@ -274,10 +276,10 @@ abstract class rex_global_settings_handler
                         $dbvalues = explode('|', $defaultValue);
                     }
 
-                    // hier mit den "raw"-values arbeiten, da die rex_select klasse selbst escaped
+                    // hier mit den "raw"-values arbeiten, da die \rex_select klasse selbst escaped
                     $select->setSelected($dbvalues);
 
-                    if ('SELECT' == rex_sql::getQueryType($params)) {
+                    if ('SELECT' == \rex_sql::getQueryType($params)) {
                         // Werte via SQL Laden
                         $select->addDBSqlOptions($params);
                     } else {
@@ -292,9 +294,9 @@ abstract class rex_global_settings_handler
                                 && !str_starts_with($value_group, 'translate:')
                             ) {
                                 $temp = explode(':', $value_group, 2);
-                                $values[$temp[0]] = rex_i18n::translate($temp[1]);
+                                $values[$temp[0]] = \rex_i18n::translate($temp[1]);
                             } else {
-                                $values[$value_group] = rex_i18n::translate($value_group);
+                                $values[$value_group] = \rex_i18n::translate($value_group);
                             }
                         }
                         $select->addOptions($values);
@@ -306,7 +308,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -328,7 +330,7 @@ abstract class rex_global_settings_handler
                     $inputValue['hour'] = date('G', $dbvalues[0]);
                     $inputValue['minute'] = date('i', $dbvalues[0]);
 
-                    $rexInput = rex_global_settings_input::factory($typeLabel);
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory($typeLabel);
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setAttribute('id', $id);
                     $rexInput->setAttribute('name', $name);
@@ -342,7 +344,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -350,7 +352,7 @@ abstract class rex_global_settings_handler
                 case 'textarea':
                     $tag_attr = ' class="form-control"';
 
-                    $rexInput = rex_global_settings_input::factory($typeLabel);
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory($typeLabel);
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setAttribute('id', $id);
                     $rexInput->setAttribute('name', $name);
@@ -365,7 +367,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -427,9 +429,9 @@ abstract class rex_global_settings_handler
                     $tag = 'div';
                     $tag_attr = ' class="rex-form-widget"';
 
-                    $paramArray = rex_string::split($params);
+                    $paramArray = \rex_string::split($params);
 
-                    $rexInput = rex_global_settings_input::factory('mediabutton');
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory('mediabutton');
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setButtonId($media_id);
                     $rexInput->setAttribute('name', $name);
@@ -452,7 +454,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -462,10 +464,10 @@ abstract class rex_global_settings_handler
                     $tag = 'div';
                     $tag_attr = ' class="rex-form-widget"';
 
-                    $paramArray = rex_string::split($params);
+                    $paramArray = \rex_string::split($params);
 
                     $name .= '[]';
-                    $rexInput = rex_global_settings_input::factory('medialistbutton');
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory('medialistbutton');
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setButtonId($mlist_id);
                     $rexInput->setAttribute('name', $name);
@@ -488,7 +490,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -498,7 +500,7 @@ abstract class rex_global_settings_handler
                     $tag = 'div';
                     $tag_attr = ' class="rex-form-widget"';
 
-                    $paramArray = rex_string::split($params);
+                    $paramArray = \rex_string::split($params);
                     $category = '';
                     if (isset($paramArray['category'])) {
                         $category = $paramArray['category'];
@@ -506,7 +508,7 @@ abstract class rex_global_settings_handler
                         $category = $activeItem->getValue('category_id');
                     }
 
-                    $rexInput = rex_global_settings_input::factory('linkbutton');
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory('linkbutton');
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setButtonId($link_id);
                     $rexInput->setCategoryId($category);
@@ -519,7 +521,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -529,7 +531,7 @@ abstract class rex_global_settings_handler
                     $tag = 'div';
                     $tag_attr = ' class="rex-form-widget"';
 
-                    $paramArray = rex_string::split($params);
+                    $paramArray = \rex_string::split($params);
                     $category = '';
                     if (isset($paramArray['category'])) {
                         $category = $paramArray['category'];
@@ -538,7 +540,7 @@ abstract class rex_global_settings_handler
                     }
 
                     $name .= '[]';
-                    $rexInput = rex_global_settings_input::factory('linklistbutton');
+                    $rexInput = \FriendsOfRedaxo\GlobalSettings\Input\Input::factory('linklistbutton');
                     $rexInput->addAttributes($attrArray);
                     $rexInput->setButtonId($llist_id);
                     $rexInput->setCategoryId($category);
@@ -551,7 +553,7 @@ abstract class rex_global_settings_handler
                     $e['label'] = $label;
                     $e['field'] = $field;
                     $e['note'] = $notice;
-                    $fragment = new rex_fragment();
+                    $fragment = new \rex_fragment();
                     $fragment->setVar('elements', [$e], false);
                     $field = $fragment->parse('core/form/form.php');
 
@@ -560,7 +562,7 @@ abstract class rex_global_settings_handler
                 default:
                     // ----- EXTENSION POINT
                     [$field, $tag, $tag_attr, $id, $label, $labelIt] =
-                        rex_extension::registerPoint(new rex_extension_point(
+                        \rex_extension::registerPoint(new \rex_extension_point(
                             'GLOBAL_SETTINGS_CUSTOM_FIELD',
                             [
                                 $field,
@@ -621,19 +623,19 @@ abstract class rex_global_settings_handler
             $out = $tabControl;
         }
 
-        return str_replace('">' . rex_global_settings::FIELD_PREFIX, '">', $out);
+        return str_replace('">' . \rex_global_settings::FIELD_PREFIX, '">', $out);
     }
 
     /**
-     * Übernimmt die gePOSTeten werte in ein rex_sql-Objekt.
+     * Übernimmt die gePOSTeten werte in ein \rex_sql-Objekt.
      *
      * @param array $params
-     * @param rex_sql $sqlSave rex_sql-objekt, in das die aktuellen Werte gespeichert werden sollen
-     * @param rex_sql $sqlFields rex_sql-objekt, dass die zu verarbeitenden Felder enthält
+     * @param \rex_sql $sqlSave \rex_sql-objekt, in das die aktuellen Werte gespeichert werden sollen
+     * @param \rex_sql $sqlFields \rex_sql-objekt, dass die zu verarbeitenden Felder enthält
      */
     public static function fetchRequestValues(&$params, &$sqlSave, $sqlFields)
     {
-        if ('post' != rex_request_method()) {
+        if ('post' != \rex_request_method()) {
             return;
         }
 
@@ -645,7 +647,7 @@ abstract class rex_global_settings_handler
             $fieldAttributes = $sqlFields->getValue('attributes');
 
             // dont save restricted fields
-            $attrArray = rex_string::split($fieldAttributes);
+            $attrArray = \rex_string::split($fieldAttributes);
 
             /**
              * check if the field is a tab
@@ -694,11 +696,11 @@ abstract class rex_global_settings_handler
      */
     public static function getSaveValue($fieldName, $fieldType, $fieldAttributes)
     {
-        if ('post' != rex_request_method()) {
+        if ('post' != \rex_request_method()) {
             return null;
         }
 
-        $postValue = rex_post($fieldName, 'array');
+        $postValue = \rex_post($fieldName, 'array');
 
         // handle date types with timestamps
         if (isset($postValue['year']) && isset($postValue['month']) && isset($postValue['day']) && isset($postValue['hour']) && isset($postValue['minute'])) {
@@ -748,7 +750,7 @@ abstract class rex_global_settings_handler
      * @param string $prefix Feldprefix
      * @param string $filterCondition SQL Where-Bedingung zum einschränken der Metafelder
      *
-     * @return rex_sql global_settings felder
+     * @return \rex_sql global_settings felder
      */
     protected static function getSqlFields($prefix, $filterCondition = '')
     {
@@ -758,8 +760,8 @@ abstract class rex_global_settings_handler
         $qry = 'SELECT
                             *
                         FROM
-                            ' . rex::getTablePrefix() . 'global_settings_field p,
-                            ' . rex::getTablePrefix() . 'global_settings_type t
+                            ' . \rex::getTablePrefix() . 'global_settings_field p,
+                            ' . \rex::getTablePrefix() . 'global_settings_type t
                         WHERE
                             `p`.`type_id` = `t`.`id` AND
                             `p`.`name` LIKE "' . $prefix . '%"
@@ -767,7 +769,7 @@ abstract class rex_global_settings_handler
                             ORDER BY
                             priority';
 
-        $sqlFields = rex_sql::factory();
+        $sqlFields = \rex_sql::factory();
         // $sqlFields->setDebug();
         $sqlFields->setQuery($qry);
 
@@ -795,26 +797,26 @@ abstract class rex_global_settings_handler
         $params = $this->handleSave($params, $sqlFields);
 
         // trigger callback of sql fields
-        if ('post' == rex_request_method()) {
+        if ('post' == \rex_request_method()) {
             $this->fireCallbacks($sqlFields);
         }
 
         return self::renderMetaFields($sqlFields, $params);
     }
 
-    protected function fireCallbacks(rex_sql $sqlFields)
+    protected function fireCallbacks(\rex_sql $sqlFields)
     {
         foreach ($sqlFields as $row) {
             if ('' != $row->getValue('callback')) {
                 // use a small sandbox, so the callback cannot affect our local variables
                 $sandboxFunc = function ($field) {
-                    // TODO add var to ref the actual table (rex_article,...)
+                    // TODO add var to ref the actual table (\rex_article,...)
                     $fieldName = $field->getValue('name');
                     $fieldType = $field->getValue('type_id');
                     $fieldAttributes = $field->getValue('attributes');
                     $fieldValue = self::getSaveValue($fieldName, $fieldType, $fieldAttributes);
 
-                    require rex_stream::factory('global_settings/' . $field->getValue('id') . '/callback', $field->getValue('callback'));
+                    require \rex_stream::factory('global_settings/' . $field->getValue('id') . '/callback', $field->getValue('callback'));
                 };
                 // pass a clone to the custom handler, so the callback will not change our var
                 $sandboxFunc(clone $row);
@@ -850,10 +852,10 @@ abstract class rex_global_settings_handler
      *
      * @return string
      */
-    abstract public function extendForm(rex_extension_point $ep);
+    abstract public function extendForm(\rex_extension_point $ep);
 
     /**
-     * Retrieves the POST values from the metaform, fill it into a rex_sql object and save it to a database table.
+     * Retrieves the POST values from the metaform, fill it into a \rex_sql object and save it to a database table.
      */
-    abstract protected function handleSave(array $params, rex_sql $sqlFields);
+    abstract protected function handleSave(array $params, \rex_sql $sqlFields);
 }

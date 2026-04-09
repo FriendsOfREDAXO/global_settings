@@ -22,6 +22,16 @@ rex_sql_table::get(rex::getTable('global_settings_field'))
     ->ensureIndex(new rex_sql_index('name', ['name'], rex_sql_index::UNIQUE))
     ->ensure();
 
+// Update existing global_settings table schema
+$settingsTable = rex_sql_table::get(rex::getTable('global_settings'));
+if (!$settingsTable->hasColumn('domain_id')) {
+    $settingsTable
+        ->ensureColumn(new rex_sql_column('domain_id', 'int(10) unsigned', false, '1'))
+        ->removeIndex('PRIMARY')
+        ->setPrimaryKey(['domain_id', 'clang'])
+        ->alter();
+}
+
 // update existing textarea fields from text to mediumtext
 if (rex_string::versionCompare($addon->getVersion(), '2.7.1', '<=')) {
     $sql = rex_sql::factory();
@@ -40,4 +50,3 @@ $sql = rex_sql::factory();
 $sql->setQuery('INSERT INTO ' . rex::getTable('global_settings_type') . ' (id, label, dbtype, dblength) 
     VALUES (16, "rgbacolorpicker", "text", 0) 
     ON DUPLICATE KEY UPDATE label = VALUES(label), dbtype = VALUES(dbtype), dblength = VALUES(dblength)');
-

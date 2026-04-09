@@ -61,10 +61,14 @@ $(document).on('rex:ready', function (event, container) {
         disableSelect(this);
     })
 
-    $(".rex-global-settings-color-picker,.rex-color-picker").spectrum({
-        preferredFormat: 'hex',
-        showInput: true,
-        allowEmpty: true
+    $(".rex-global-settings-color-picker, .rex-global-settings-rgba-color-picker, .rex-color-picker").each(function () {
+        var $el = $(this);
+        $el.spectrum({
+            preferredFormat: $el.data('preferred-format') || 'hex',
+            showAlpha: $el.data('show-alpha') || false,
+            showInput: true,
+            allowEmpty: true
+        });
     });
 
     // codemirror fix as otherwise in combination with tabs codemirror is broken

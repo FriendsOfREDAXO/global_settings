@@ -1,6 +1,8 @@
 <?php
 
-class rex_global_settings_input_linklistbutton extends rex_global_settings_input
+namespace FriendsOfRedaxo\GlobalSettings\Input;
+
+class Linklistbutton extends Input
 {
     private $buttonId;
     private $categoryId;
@@ -27,10 +29,10 @@ class rex_global_settings_input_linklistbutton extends rex_global_settings_input
     {
         $buttonId = $this->buttonId;
         $category = $this->categoryId;
-        $value = htmlspecialchars($this->value);
+        $value = \rex_escape((string) $this->value);
         $name = $this->attributes['name'];
 
-        $field = rex_var_linklist::getWidget($buttonId, $name, $value, ['category' => $category]);
+        $field = \rex_var_linklist::getWidget($buttonId, $name, $value, ['category' => $category]);
 
         return $field;
     }

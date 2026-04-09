@@ -3,7 +3,7 @@
 $mypage = 'global_settings';
 
 if (!defined('REX_GLOBAL_SETTINGS_FIELD_TEXT')) {
-    // Feldtypen
+    // Feldtypen - now deprecated in favor of \FriendsOfRedaxo\GlobalSettings\TableManager::FIELD_*
     define('REX_GLOBAL_SETTINGS_FIELD_TEXT', 1);
     define('REX_GLOBAL_SETTINGS_FIELD_TEXTAREA', 2);
     define('REX_GLOBAL_SETTINGS_FIELD_SELECT', 3);
@@ -31,26 +31,38 @@ $this->setProperty('metaTables', [
 rex_extension::register('PACKAGES_INCLUDED', 'rex_global_settings::init');
 
 if (rex::isBackend()) {
-    // rex_perm::register('global_settings[settings]', null, rex_perm::OPTIONS);
-
     $curDir = __DIR__;
     require_once $curDir . '/functions/function_global_settings.php';
 
-    rex_global_settings_check_langs();
+    \FriendsOfRedaxo\GlobalSettings\GlobalSettingsHelper::checkLangs();
 
-    rex_extension::register('PAGE_CHECKED', 'rex_global_settings_extensions_handler');
+    rex_extension::register('PAGE_CHECKED', ['\\FriendsOfRedaxo\\GlobalSettings\\GlobalSettingsHelper', 'extensionsHandler']);
 
-    rex_extension::register('CLANG_ADDED', 'rex_global_settings_clang_added');
-    rex_extension::register('CLANG_DELETED', 'rex_global_settings_clang_deleted');
+    rex_extension::register('CLANG_ADDED', ['\\FriendsOfRedaxo\\GlobalSettings\\GlobalSettingsHelper', 'clangAdded']);
+    rex_extension::register('CLANG_DELETED', ['\\FriendsOfRedaxo\\GlobalSettings\\GlobalSettingsHelper', 'clangDeleted']);
 
     rex_extension::register('PAGES_PREPARED', static function () {
-        if (rex::getUser() instanceof rex_user) { // important, otherwise oops error (also never use is_object()...otherwise you will regret it ;))
+        if (rex::getUser() instanceof rex_user) {
             if (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('global_settings[settings]')) {
                 $page = rex_be_controller::getPageObject('global_settings/settings');
 
-                if (count(rex_clang::getAll(false)) > 1) {
+                if ($page && count(rex_clang::getAll(false)) > 1) {
                     $clang_id = str_replace('clang', '', (string) rex_be_controller::getCurrentPagePart(3));
-                    $clangAll = \rex_clang::getAll();
+                    $clangAll = rex_clang::getAll();
+
+                    $domainId = rex_request('domain_id', 'int', rex_session('global_settings_domain_id', 'int', 1));
+                    if (!$domainId && rex_addon::get('yrewrite')->isAvailable()) {
+                        $domainId = rex_yrewrite::getDefaultDomain()->getId();
+                    }
+
+                    if (rex_addon::get('yrewrite')->isAvailable()) {
+                        if ($domain = rex_yrewrite::getDomainById($domainId)) {
+                            $allowedClangs = $domain->getClangs();
+                            $clangAll = array_filter($clangAll, static function ($clang) use ($allowedClangs) {
+                                return in_array($clang->getId(), $allowedClangs);
+                            });
+                        }
+                    }
 
                     foreach ($clangAll as $id => $clang) {
                         if (rex::getUser()->getComplexPerm('clang')->hasPerm($id)) {
@@ -74,5 +86,5 @@ if (rex::isBackend()) {
         rex_global_settings::deleteCache();
     });
 
-    rex_extension::register('MEDIA_IS_IN_USE', 'rex_global_settings_helper::isMediaInUse');
+    rex_extension::register('MEDIA_IS_IN_USE', ['\\FriendsOfRedaxo\\GlobalSettings\\GlobalSettingsHelper', 'isMediaInUse']);
 }
