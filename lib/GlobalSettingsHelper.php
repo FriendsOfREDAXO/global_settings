@@ -90,12 +90,16 @@ class GlobalSettingsHelper
     
         foreach (\rex_clang::getAllIds() as $clangId) {
             foreach ($domains as $domainId) {
-                $sql = \rex_sql::factory();
-                $sql->setQuery('SELECT clang FROM ' . \rex::getTablePrefix() . 'global_settings WHERE clang = ? AND domain_id = ?', [$clangId, $domainId]);
-    
-                if ($sql->getRows() === 0) {
-                    $insert = \rex_sql::factory();
-                    $insert->setQuery('INSERT INTO ' . \rex::getTablePrefix() . 'global_settings (clang, domain_id) VALUES (?, ?)', [$clangId, $domainId]);
+                try {
+                    $sql = \rex_sql::factory();
+                    $sql->setQuery('SELECT clang FROM ' . \rex::getTablePrefix() . 'global_settings WHERE clang = ? AND domain_id = ?', [$clangId, $domainId]);
+        
+                    if ($sql->getRows() === 0) {
+                        $insert = \rex_sql::factory();
+                        $insert->setQuery('INSERT INTO ' . \rex::getTablePrefix() . 'global_settings (clang, domain_id) VALUES (?, ?)', [$clangId, $domainId]);
+                    }
+                } catch (\rex_sql_exception $e) {
+                    // Ignore exception during update/reinstall before schema is migrated
                 }
             }
         }
